@@ -76,23 +76,36 @@
   </pre>
 
   <input type="password" id="password" placeholder="enter password?">
-  <button onclick="checkPassword()">Confirm</button>
+  <button onclick="checkPassword()">confirm</button>
+  <div id="message" class="message"></div>
   <div class="soon">soon...</div>
-  <div class="redirecting" id="redirecting">redirecting...</div>
 
   <script>
+    const passwordInput = document.getElementById("password");
+    const message = document.getElementById("message");
+
     function checkPassword() {
-      const input = document.getElementById("password").value;
-      if (input === "abcde") { //change password here
-        document.getElementById("redirecting").style.display = "block";
+      const input = passwordInput.value.trim();
+      if (input === "abcde") {
+        message.textContent = "redirecting...";
+        message.className = "message"; // reset style
+        message.style.display = "block";
         setTimeout(() => {
-          window.location.href = "youtube.com"; // change website here
-        }, 3000); //change timeout here
+          window.location.href = "youtube.com"; // change later
+        }, 3000);
       } else {
-        alert("uh oh you suck");
+        message.textContent = "uh oh you suck";
+        message.className = "message error";
+        message.style.display = "block";
       }
-   }
+    }
+
+    // Allow Enter key to trigger checkPassword
+    passwordInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        checkPassword();
+      }
+    });
   </script>
 </body>
 </html>
-
