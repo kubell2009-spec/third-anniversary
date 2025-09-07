@@ -17,7 +17,7 @@
       white-space: pre;
       font-size: 12px;
       line-height: 1.1em;
-      text-align: center;
+      text-align: left;
     }
     input[type="password"] {
       margin-top: 20px;
@@ -75,7 +75,24 @@
   |___|___|___|_| "-----------------------------------"  "-----------------------------------" |___|___|___|_|
   </pre>
 
-  <input type="password" placeholder="abcde">
+  <input type="password" id="password" placeholder="enter password?">
+  <button onclick="checkPassword()">Confirm</button>
   <div class="soon">soon...</div>
+  <div class="redirecting" id="redirecting">redirecting...</div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === "abcde") { //change password here
+        document.getElementById("redirecting").style.display = "block";
+        setTimeout(() => {
+          window.location.href = "youtube.com"; // change website here
+        }, 3000); //change timeout here
+      } else {
+        alert("uh oh you suck");
+      }
+   }
+  </script>
 </body>
 </html>
+
