@@ -86,13 +86,13 @@
 
     function checkPassword() {
       const input = passwordInput.value.trim();
-      if (input === "abcde") {
+      if (input === "abcdefghijklmnopqrstuvwxyz") { //change password here
         message.textContent = "redirecting...";
-        message.className = "message"; // reset style
+        message.className = "message";
         message.style.display = "block";
         setTimeout(() => {
-          window.location.href = "youtube.com"; // change later
-        }, 3000);
+          window.location.href = "www.youtube.com"; // change website here
+        }, 1000); //change timeout here
       } else {
         message.textContent = "uh oh you suck";
         message.className = "message error";
@@ -109,3 +109,4 @@
   </script>
 </body>
 </html>
+
