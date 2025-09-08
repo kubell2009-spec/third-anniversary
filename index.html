@@ -30,6 +30,31 @@
       color: #0f0;
       outline: none;
     }
+    /* Button styling (same as A–E links) */
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border: 1px solid limegreen;
+      color: limegreen;
+      background: black;
+      font-weight: bold;
+      font-family: monospace;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn:hover {
+      background: limegreen;
+      color: black;
+    }
+    .message {
+      margin-top: 15px;
+      font-size: 16px;
+      display: none;
+    }
+    .message.error {
+      color: red;
+    }
     .soon {
       margin-top: 15px;
       font-size: 18px;
@@ -76,7 +101,7 @@
   </pre>
 
   <input type="password" id="password" placeholder="enter password?">
-  <button onclick="checkPassword()">confirm</button>
+  <button onclick="checkPassword()" class="btn">confirm</button>
   <div id="message" class="message"></div>
   <div class="soon">soon...</div>
 
@@ -109,7 +134,3 @@
   </script>
 </body>
 </html>
-
-
-
-
