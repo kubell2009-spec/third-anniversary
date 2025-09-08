@@ -9,11 +9,18 @@
       background-color: black;
       color: limegreen;
       font-family: monospace;
-      padding: 20px;
+      display: flex;
+      justify-content: center; /* horizontally center container */
+      align-items: center;     /* vertically center container */
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center; /* center “where to?” + buttons */
     }
     pre {
       white-space: pre;
-      text-align: left;
+      text-align: left; /* art stays left-aligned inside the container */
     }
     h2 {
       margin-top: 20px;
@@ -39,7 +46,8 @@
   </style>
 </head>
 <body>
-  <pre>
+  <div class="container">
+    <pre>
 XXXXXX      ~.                            .                       -                              .~    XXXXXXXXXXXX
 XXXXXXXXXX'         ~.                           \                     /                             .~       `XXXXXXXXXX
 XXXXXXXXX'            ~.                          -                   .                            .~          `XXXXXXXXX
@@ -85,16 +93,17 @@ XXX` 'XXXT        -'------------------------------------------------------------
 XXX. ,XXX|      _&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&_      |XXX. ,XXX
 XXXXXXXXX!____-'-----------------------------------------------------------------------------------------`-____!XXXXXXXXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXPraseodymium 59
-  </pre>
+    </pre>
 
-  <h2>where to?</h2>
+    <h2>where to?</h2>
 
-  <div class="buttons">
-    <a href="https://www.youtube.com/">A</a> 
-    <a href="https://www.youtube.com/">B</a>
-    <a href="https://www.youtube.com/">C</a>
-    <a href="https://www.youtube.com/">D</a>
-    <a href="https://www.youtube.com/">E</a>
+    <div class="buttons">
+      <a href="https://www.youtube.com/">A</a>
+      <a href="https://www.youtube.com/">B</a>
+      <a href="https://www.youtube.com/">C</a>
+      <a href="https://www.youtube.com/">D</a>
+      <a href="https://www.youtube.com/">E</a>
+    </div>
   </div>
 </body>
 </html>
