@@ -203,6 +203,7 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
+        questionText.textContent = "";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
@@ -301,6 +302,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
