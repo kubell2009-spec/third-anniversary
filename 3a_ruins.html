@@ -156,14 +156,15 @@ const STEPS = [
     nextNo: null   // NO -> ends
   },
 
-  // step index 4 (example later branch)
-  {
-    prompt: "One mirror calls your name — touch it?",
-    yesText: "You touch the mirror; an old song plays.",
-    noText: "You do not touch it. The mirror dims.",
-    nextYes: null,
-    nextNo: null
-  }
+  // step index 4 (passcode step)
+{
+  type: "passcode",
+  prompt: "A pedestal rises. It demands a passcode to proceed.",
+  correctCode: "swordfish",   // 🔑 change this
+  successText: "The pedestal glows... You receive CODE PART 3: XYZ123",  // <--- put your secret here
+  failureText: "The pedestal rumbles angrily. Wrong code.",
+}
+
 ];
 
 const FINAL_TEXT = "You reach the heart of the place. The world rearranges and you feel a quiet victory.";
@@ -177,7 +178,6 @@ const storyArea = document.getElementById('storyArea');
 
 /* Render the current prompt according to nextYes/nextNo */
 function renderPrompt() {
-  // If stepIndex is past array length -> show final then restart
   if (stepIndex >= STEPS.length) {
     questionText.textContent = "End of path.";
     choiceButtons.innerHTML = '';
@@ -190,46 +190,66 @@ function renderPrompt() {
   questionText.textContent = step.prompt;
   choiceButtons.innerHTML = '';
 
-  // YES button
-  const yesBtn = document.createElement('button');
-  yesBtn.className = 'btn';
-  yesBtn.textContent = 'Yes';
-  yesBtn.addEventListener('click', () => {
-    appendParagraph(step.yesText || '');
-    // decide next location
-    if (typeof step.nextYes === 'number') {
-      stepIndex = step.nextYes;
-      renderPrompt();
-    } else {
-      // ended branch after YES
-      choiceButtons.innerHTML = '';
-      // show optional branch final text or default
-      appendParagraph(step.endTextYes || '(branch ended)');
-      choiceButtons.appendChild(createRestartButton());
-      questionText.textContent = "(branch ended)";
-    }
-  });
-  choiceButtons.appendChild(yesBtn);
+  if (step.type === "passcode") {
+    // make an input box + submit button
+    const input = document.createElement('input');
+    input.type = 'password';
+    input.placeholder = "Enter passcode";
+    input.className = "password-input"; // styled by your CSS
+    choiceButtons.appendChild(input);
 
-  // NO button
-  const noBtn = document.createElement('button');
-  noBtn.className = 'btn';
-  noBtn.textContent = 'No';
-  noBtn.addEventListener('click', () => {
-    appendParagraph(step.noText || '');
-    if (typeof step.nextNo === 'number') {
-      stepIndex = step.nextNo;
-      renderPrompt();
-    } else {
-      // ended branch after NO
-      choiceButtons.innerHTML = '';
-      appendParagraph(step.endTextNo || '(branch ended)');
-      choiceButtons.appendChild(createRestartButton());
-      questionText.textContent = "(branch ended)";
-    }
-  });
-  choiceButtons.appendChild(noBtn);
+    const submit = document.createElement('button');
+    submit.className = 'btn';
+    submit.textContent = 'Submit';
+    submit.addEventListener('click', () => {
+      if (input.value === step.correctCode) {
+        appendParagraph(step.successText);
+        choiceButtons.innerHTML = '';
+        choiceButtons.appendChild(createRestartButton());
+      } else {
+        appendParagraph(step.failureText);
+      }
+    });
+    choiceButtons.appendChild(submit);
+
+  } else {
+    // --- YES/NO default branch ---
+    const yesBtn = document.createElement('button');
+    yesBtn.className = 'btn';
+    yesBtn.textContent = 'Yes';
+    yesBtn.addEventListener('click', () => {
+      appendParagraph(step.yesText || '');
+      if (typeof step.nextYes === 'number') {
+        stepIndex = step.nextYes;
+        renderPrompt();
+      } else {
+        choiceButtons.innerHTML = '';
+        appendParagraph(step.endTextYes || '(branch ended)');
+        choiceButtons.appendChild(createRestartButton());
+        questionText.textContent = "(branch ended)";
+      }
+    });
+    choiceButtons.appendChild(yesBtn);
+
+    const noBtn = document.createElement('button');
+    noBtn.className = 'btn';
+    noBtn.textContent = 'No';
+    noBtn.addEventListener('click', () => {
+      appendParagraph(step.noText || '');
+      if (typeof step.nextNo === 'number') {
+        stepIndex = step.nextNo;
+        renderPrompt();
+      } else {
+        choiceButtons.innerHTML = '';
+        appendParagraph(step.endTextNo || '(branch ended)');
+        choiceButtons.appendChild(createRestartButton());
+        questionText.textContent = "(branch ended)";
+      }
+    });
+    choiceButtons.appendChild(noBtn);
+  }
 }
+
 
 /* Utility to append story paragraphs */
 function appendParagraph(text) {
@@ -267,6 +287,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
