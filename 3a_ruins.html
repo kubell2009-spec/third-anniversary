@@ -99,7 +99,7 @@
   |     ;___          `"-.-'    `,_.-'"            _..-'
    `-._ |   """--,,_     |`""-.--'|         __.--""
        `"--..__     ""--.|    |   |_,_  _.-'
-               ""--.._   `-,__!_.-' _,""      fsc
+               ""--.._   `-,__!_.-' _,""
                       ""--,____.--'"
     </pre>
 
@@ -122,145 +122,155 @@
     <div class="story" id="storyArea" aria-live="polite"></div>
   </div>
 
-  <script>
-  /************************************************************************
-   *  Small "choose-your-own-adventure" engine
-   *
-   *  - Edit the `STEPS` array below to change the question + yes/no texts.
-   *  - Each element: { prompt, yesText, noText }
-   *    - prompt: the question shown with Yes/No
-   *    - yesText: appended to story when user picks YES (and advances)
-   *    - noText: appended to story when user picks NO (ends branch; shows restart)
-   *
-   *  Behavior:
-   *  - Start at step 0. If user picks YES, we append yesText and advance to next step
-   *  - If user picks NO, append noText and show only a Restart button
-   *  - After 5 YES choices (i.e. after step index 4 is answered YES), show final text + Restart
-   ************************************************************************/
+<script>
+/* --- EDITABLE: define steps and branching here --- */
+const STEPS = [
+  // step index 0
+  {
+    prompt: "You find a dim corridor with two doors — step forward?",
+    yesText: "You step forward into the corridor. The door behind you clicks shut.",
+    noText: "You decide not to step forward and the corridor fades. Your adventure ends here.",
+    nextYes: 1,   // go to step 1 on YES
+    nextNo: null 
+    endTextNo: "test test"// end on NO
+  },
 
-  // --- EDIT THESE TEXTS BELOW (change prompts and responses) ---
-  const STEPS = [
-    {
-      prompt: "You find a dim corridor with two doors — step forward?",
-      yesText: "You step forward into the corridor. The door behind you clicks shut. A faint hum guides you onward.",
-      noText: "You decide not to step forward and the corridor fades. Your adventure ends here."
-    },
-    {
-      prompt: "A whisper offers a map — do you accept it?",
-      yesText: "You accept the map. The lines rearrange, revealing a path lit by tiny green motes.",
-      noText: "You refuse the map. The whisper is offended; the world around grows colder."
-    },
-    {
-      prompt: "There is a chest with a strange lock — try to open it?",
-      yesText: "You pick the lock; inside is a small brass key with an unfamiliar symbol.",
-      noText: "You leave the chest sealed. A shadow passes by, uninterested in your caution."
-    },
-    {
-      prompt: "The key fits a hatch underfoot — descend into the hatch?",
-      yesText: "You descend and find a chamber of mirrors where each reflection shows a possible future.",
-      noText: "You decide not to descend. A distant rumble suggests something moved below."
-    },
-    {
-      prompt: "One mirror calls your name — touch it?",
-      yesText: "You touch the mirror; a warmth flows through you and an old song begins to play.",
-      noText: "You do not touch it. The song remains unheard and the mirror slowly dims."
-    }
-  ];
-  // --- END editable section ---
+  // step index 1
+  {
+    prompt: "A whisper offers a map — do you accept it?",
+    yesText: "You accept the map. The lines rearrange.",
+    noText: "You refuse the map. The whisper is offended.",
+    nextYes: 2,    // YES -> step 2
+    nextNo: 4      // NO -> jump to step 4 (branch continues instead of ending)
+  },
 
-  // Optional: final text after completing all YES steps
-  const FINAL_TEXT = "You reach the heart of the place. The world rearranges and you feel a quiet victory.";
-  const RESTART_LABEL = "Restart";
+  // step index 2
+  {
+    prompt: "There is a chest with a strange lock — try to open it?",
+    yesText: "You pick the lock; inside is a brass key.",
+    noText: "You leave the chest sealed. A shadow passes by, uninterested.",
+    nextYes: 3,    // YES -> step 3
+    nextNo: 3      // NO -> also goes to step 3 (both choices converge)
+  },
 
-  // Runtime state
-  let stepIndex = 0;
-  const questionText = document.getElementById('questionText');
-  const choiceButtons = document.getElementById('choiceButtons');
-  const storyArea = document.getElementById('storyArea');
+  // step index 3
+  {
+    prompt: "The key fits a hatch underfoot — descend into the hatch?",
+    yesText: "You descend and find a chamber of mirrors.",
+    noText: "You decide not to descend. A rumble suggests movement below.",
+    nextYes: 4,    // YES -> step 4
+    nextNo: null   // NO -> ends
+  },
 
-  // Initialize UI
-  function renderPrompt() {
-    // If stepIndex is past last step, show final and restart
-    if (stepIndex >= STEPS.length) {
-      questionText.textContent = "End of path.";
-      choiceButtons.innerHTML = '';
-      appendParagraph(FINAL_TEXT);
-      choiceButtons.appendChild(createRestartButton());
-      return;
-    }
+  // step index 4 (example later branch)
+  {
+    prompt: "One mirror calls your name — touch it?",
+    yesText: "You touch the mirror; an old song plays.",
+    noText: "You do not touch it. The mirror dims.",
+    nextYes: null,
+    nextNo: null
+  }
+];
 
-    // Show current prompt
-    questionText.textContent = STEPS[stepIndex].prompt;
+const FINAL_TEXT = "You reach the heart of the place. The world rearranges and you feel a quiet victory.";
+const RESTART_LABEL = "Restart";
+
+/* --- runtime and UI references --- */
+let stepIndex = 0;
+const questionText = document.getElementById('questionText');
+const choiceButtons = document.getElementById('choiceButtons');
+const storyArea = document.getElementById('storyArea');
+
+/* Render the current prompt according to nextYes/nextNo */
+function renderPrompt() {
+  // If stepIndex is past array length -> show final then restart
+  if (stepIndex >= STEPS.length) {
+    questionText.textContent = "End of path.";
     choiceButtons.innerHTML = '';
+    appendParagraph(FINAL_TEXT);
+    choiceButtons.appendChild(createRestartButton());
+    return;
+  }
 
-    // YES button
-    const yesBtn = document.createElement('button');
-    yesBtn.className = 'btn';
-    yesBtn.textContent = 'Yes';
-    yesBtn.addEventListener('click', () => {
-      // append yes text
-      appendParagraph(STEPS[stepIndex].yesText);
-      stepIndex++;
-      // if we've completed all steps after increment, show final
-      if (stepIndex >= STEPS.length) {
-        renderPrompt(); // will handle final
-      } else {
-        // show next prompt with new yes/no
-        renderPrompt();
-      }
-    });
-    choiceButtons.appendChild(yesBtn);
+  const step = STEPS[stepIndex];
+  questionText.textContent = step.prompt;
+  choiceButtons.innerHTML = '';
 
-    // NO button
-    const noBtn = document.createElement('button');
-    noBtn.className = 'btn';
-    noBtn.textContent = 'No';
-    noBtn.addEventListener('click', () => {
-      // append no text and show only restart
-      appendParagraph(STEPS[stepIndex].noText);
+  // YES button
+  const yesBtn = document.createElement('button');
+  yesBtn.className = 'btn';
+  yesBtn.textContent = 'Yes';
+  yesBtn.addEventListener('click', () => {
+    appendParagraph(step.yesText || '');
+    // decide next location
+    if (typeof step.nextYes === 'number') {
+      stepIndex = step.nextYes;
+      renderPrompt();
+    } else {
+      // ended branch after YES
       choiceButtons.innerHTML = '';
+      // show optional branch final text or default
+      appendParagraph(step.endTextYes || '(branch ended)');
       choiceButtons.appendChild(createRestartButton());
       questionText.textContent = "(branch ended)";
-    });
-    choiceButtons.appendChild(noBtn);
-  }
+    }
+  });
+  choiceButtons.appendChild(yesBtn);
 
-  // Utility: append paragraph to story area
-  function appendParagraph(text) {
-    const p = document.createElement('p');
-    p.style.margin = '10px 0';
-    p.textContent = text;
-    storyArea.appendChild(p);
-    // scroll into view
-    p.scrollIntoView({behavior:'smooth', block:'end'});
-  }
+  // NO button
+  const noBtn = document.createElement('button');
+  noBtn.className = 'btn';
+  noBtn.textContent = 'No';
+  noBtn.addEventListener('click', () => {
+    appendParagraph(step.noText || '');
+    if (typeof step.nextNo === 'number') {
+      stepIndex = step.nextNo;
+      renderPrompt();
+    } else {
+      // ended branch after NO
+      choiceButtons.innerHTML = '';
+      appendParagraph(step.endTextNo || '(branch ended)');
+      choiceButtons.appendChild(createRestartButton());
+      questionText.textContent = "(branch ended)";
+    }
+  });
+  choiceButtons.appendChild(noBtn);
+}
 
-  // Create a restart button element
-  function createRestartButton() {
-    const r = document.createElement('button');
-    r.className = 'btn';
-    r.textContent = RESTART_LABEL;
-    r.addEventListener('click', () => {
-      restartAdventure();
-    });
-    return r;
-  }
+/* Utility to append story paragraphs */
+function appendParagraph(text) {
+  const p = document.createElement('p');
+  p.style.margin = '10px 0';
+  p.textContent = text;
+  storyArea.appendChild(p);
+  p.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
 
-  // Restart resets everything back to step 0 and clears story
-  function restartAdventure() {
-    stepIndex = 0;
-    storyArea.innerHTML = '';
-    renderPrompt();
-    // reset essay box content if you want (comment out if you prefer to keep essay)
-    // document.querySelector('.essay-box').innerHTML = '(write your essay here...)';
-  }
+/* Restart button */
+function createRestartButton() {
+  const r = document.createElement('button');
+  r.className = 'btn';
+  r.textContent = RESTART_LABEL;
+  r.addEventListener('click', () => {
+    restartAdventure();
+  });
+  return r;
+}
 
-  // On load
-  (function init(){
-    // show initial prompt
-    renderPrompt();
-  })();
+function restartAdventure() {
+  stepIndex = 0;
+  storyArea.innerHTML = '';
+  renderPrompt();
+  // optional: reset essay box
+  // document.querySelector('.essay-box').innerHTML = '(write your essay here...)';
+}
 
-  </script>
+/* Initialize */
+(function init(){
+  renderPrompt();
+})();
+</script>
+
 </body>
 </html>
+
