@@ -190,12 +190,12 @@ function renderPrompt() {
   questionText.textContent = step.prompt;
   choiceButtons.innerHTML = '';
 
+  // --- Special case: passcode step ---
   if (step.type === "passcode") {
-    // make an input box + submit button
     const input = document.createElement('input');
     input.type = 'password';
     input.placeholder = "Enter passcode";
-    input.className = "password-input"; // styled by your CSS
+    input.className = "password-input";
     choiceButtons.appendChild(input);
 
     const submit = document.createElement('button');
@@ -203,53 +203,67 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        appendParagraph(step.successText);
+        appendParagraph(step.successText || "Correct!");
+
+        // ✅ Instead of restart, show Return button
+        choiceButtons.innerHTML = '';
+        const returnBtn = document.createElement('button');
+        returnBtn.className = 'btn';
+        returnBtn.textContent = 'Return';
+        returnBtn.addEventListener('click', () => {
+          appendParagraph("Returning...");
+          choiceButtons.innerHTML = '';
+          setTimeout(() => {
+            window.location.href = "3a_portal.html";
+          }, 1000); // 1000 ms = 1 second
+        });
+        choiceButtons.appendChild(returnBtn);
+
+      } else {
+        appendParagraph(step.failureText || "Incorrect.");
         choiceButtons.innerHTML = '';
         choiceButtons.appendChild(createRestartButton());
-      } else {
-        appendParagraph(step.failureText);
       }
     });
     choiceButtons.appendChild(submit);
-
-  } else {
-    // --- YES/NO default branch ---
-    const yesBtn = document.createElement('button');
-    yesBtn.className = 'btn';
-    yesBtn.textContent = 'Yes';
-    yesBtn.addEventListener('click', () => {
-      appendParagraph(step.yesText || '');
-      if (typeof step.nextYes === 'number') {
-        stepIndex = step.nextYes;
-        renderPrompt();
-      } else {
-        choiceButtons.innerHTML = '';
-        appendParagraph(step.endTextYes || '(branch ended)');
-        choiceButtons.appendChild(createRestartButton());
-        questionText.textContent = "(branch ended)";
-      }
-    });
-    choiceButtons.appendChild(yesBtn);
-
-    const noBtn = document.createElement('button');
-    noBtn.className = 'btn';
-    noBtn.textContent = 'No';
-    noBtn.addEventListener('click', () => {
-      appendParagraph(step.noText || '');
-      if (typeof step.nextNo === 'number') {
-        stepIndex = step.nextNo;
-        renderPrompt();
-      } else {
-        choiceButtons.innerHTML = '';
-        appendParagraph(step.endTextNo || '(branch ended)');
-        choiceButtons.appendChild(createRestartButton());
-        questionText.textContent = "(branch ended)";
-      }
-    });
-    choiceButtons.appendChild(noBtn);
+    return; // stop here so YES/NO buttons aren't created
   }
-}
 
+  // --- Default case: YES/NO branching ---
+  const yesBtn = document.createElement('button');
+  yesBtn.className = 'btn';
+  yesBtn.textContent = 'Yes';
+  yesBtn.addEventListener('click', () => {
+    appendParagraph(step.yesText || '');
+    if (typeof step.nextYes === 'number') {
+      stepIndex = step.nextYes;
+      renderPrompt();
+    } else {
+      choiceButtons.innerHTML = '';
+      appendParagraph(step.endTextYes || '(branch ended)');
+      choiceButtons.appendChild(createRestartButton());
+      questionText.textContent = "(branch ended)";
+    }
+  });
+  choiceButtons.appendChild(yesBtn);
+
+  const noBtn = document.createElement('button');
+  noBtn.className = 'btn';
+  noBtn.textContent = 'No';
+  noBtn.addEventListener('click', () => {
+    appendParagraph(step.noText || '');
+    if (typeof step.nextNo === 'number') {
+      stepIndex = step.nextNo;
+      renderPrompt();
+    } else {
+      choiceButtons.innerHTML = '';
+      appendParagraph(step.endTextNo || '(branch ended)');
+      choiceButtons.appendChild(createRestartButton());
+      questionText.textContent = "(branch ended)";
+    }
+  });
+  choiceButtons.appendChild(noBtn);
+}
 
 /* Utility to append story paragraphs */
 function appendParagraph(text) {
@@ -287,6 +301,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
