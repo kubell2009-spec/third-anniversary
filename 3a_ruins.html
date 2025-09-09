@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ASCII Adventure</title>
+
+  <!-- Use your existing stylesheet -->
+  <link rel="stylesheet" href="3a_style.css">
+
+  <!-- Minimal layout tweaks (safe even if you already have these in 3a_style.css) -->
+  <style>
+    /* Ensure container and ascii positioning are correct */
+    body { margin:0; min-height:100vh; display:flex; justify-content:center; align-items:center; }
+    .container { text-align:center; width:100%; max-width:1100px; padding:28px; box-sizing:border-box; }
+
+    /* ASCII block centered as an inline-block, but text inside left aligned */
+    pre.ascii {
+      display:inline-block;   /* shrink-wrap so centering works */
+      text-align:left;        /* keep ASCII lines left-aligned */
+      white-space:pre;
+      margin: 0 0 18px 0;
+      font-family: monospace;
+      line-height:1.05;
+    }
+
+    /* Essay / long text box: contenteditable so typed text can be justified */
+    .essay-box {
+      width: 90%;
+      max-width: 900px;
+      min-height: 260px;
+      padding: 14px;
+      box-sizing: border-box;
+      border: 2px solid #0f0;  /* will match your neon green */
+      background: #000;        /* keeps the theme */
+      color: #0f0;
+      margin: 14px auto;
+      text-align: justify;     /* make written paragraphs look like an essay */
+      outline: none;
+      overflow:auto;
+      font-family: monospace;
+    }
+
+    /* Prompt area (question + buttons) centered */
+    .prompt {
+      margin-top: 18px;
+    }
+    .prompt .question {
+      margin-bottom: 12px;
+      max-width: 900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align: center;
+    }
+
+    /* Buttons container (uses .btn from your stylesheet) */
+    .choices { margin-top: 8px; }
+
+    /* Story area where appended texts appear */
+    .story {
+      margin-top: 18px;
+      max-width: 900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align: left; /* story paragraphs left aligned inside centered column */
+      font-family: monospace;
+      line-height:1.4;
+    }
+
+    /* Restart button styling fallback if .btn isn't loaded for some reason */
+    button.btn { /* should match your 3a_style.css .btn, safe fallback */
+      display:inline-block; padding:10px 18px; margin:6px; cursor:pointer;
+      border:1px solid #0f0; background:#000; color:#0f0; font-family:monospace; font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ASCII art: lines are left-aligned but the whole block is centered -->
+    <pre class="ascii">
+       _.-""}
+      / "" ;
+  .-"` __] ',               ___
+  I_ ""__.`-,;             |   |
+    I_.,-"ii"{             !___!
+    | ||  ||  |        ,    | |
+    | ||  ||  |       .;    | |
+    | ||  ||  |       | \   | |
+    | ||  ||  |       |  |  | |
+    | ||  ||  |       |  |  | |   __
+    | ||  ||  |       |  |  | |  |  |
+    | ||  ||  |   ;|  |  |  | |  |  |
+    | ||  ||  |"\_/`,_|  |  | |  |  |  ___.--""`\
+    | ||  ||  |       |  |\.| |=,|  |""          `,
+    | ||  ||  |       |  |  | |  |  |____________.-+.__
+   _:_!|_,'!__!       |  |  | |_,!  !         __,I   `"|
+  :     |      `-""`,.!__!-,!_!_ '--'`,_,--"""         |
+  |     ;___          `"-.-'    `,_.-'"            _..-'
+   `-._ |   """--,,_     |`""-.--'|         __.--""
+       `"--..__     ""--.|    |   |_,_  _.-'
+               ""--.._   `-,__!_.-' _,""      fsc
+                      ""--,____.--'"
+    </pre>
+
+    <!-- Editable essay box (justify-aligned). You can type directly in this box. -->
+    <div class="essay-box" contenteditable="true" aria-label="Essay box (editable).">
+      <!-- You can put starter text here, or leave blank for the user to write. -->
+      <p style="margin:0;">(write your essay here...) </p>
+    </div>
+
+    <!-- Prompt + choices -->
+    <div class="prompt" id="promptArea">
+      <div class="question" id="questionText"> <!-- question text injected here --> </div>
+
+      <div class="choices" id="choiceButtons">
+        <!-- choice buttons are injected by JS -->
+      </div>
+    </div>
+
+    <!-- Where story output appears -->
+    <div class="story" id="storyArea" aria-live="polite"></div>
+  </div>
+
+  <script>
+  /************************************************************************
+   *  Small "choose-your-own-adventure" engine
+   *
+   *  - Edit the `STEPS` array below to change the question + yes/no texts.
+   *  - Each element: { prompt, yesText, noText }
+   *    - prompt: the question shown with Yes/No
+   *    - yesText: appended to story when user picks YES (and advances)
+   *    - noText: appended to story when user picks NO (ends branch; shows restart)
+   *
+   *  Behavior:
+   *  - Start at step 0. If user picks YES, we append yesText and advance to next step
+   *  - If user picks NO, append noText and show only a Restart button
+   *  - After 5 YES choices (i.e. after step index 4 is answered YES), show final text + Restart
+   ************************************************************************/
+
+  // --- EDIT THESE TEXTS BELOW (change prompts and responses) ---
+  const STEPS = [
+    {
+      prompt: "You find a dim corridor with two doors — step forward?",
+      yesText: "You step forward into the corridor. The door behind you clicks shut. A faint hum guides you onward.",
+      noText: "You decide not to step forward and the corridor fades. Your adventure ends here."
+    },
+    {
+      prompt: "A whisper offers a map — do you accept it?",
+      yesText: "You accept the map. The lines rearrange, revealing a path lit by tiny green motes.",
+      noText: "You refuse the map. The whisper is offended; the world around grows colder."
+    },
+    {
+      prompt: "There is a chest with a strange lock — try to open it?",
+      yesText: "You pick the lock; inside is a small brass key with an unfamiliar symbol.",
+      noText: "You leave the chest sealed. A shadow passes by, uninterested in your caution."
+    },
+    {
+      prompt: "The key fits a hatch underfoot — descend into the hatch?",
+      yesText: "You descend and find a chamber of mirrors where each reflection shows a possible future.",
+      noText: "You decide not to descend. A distant rumble suggests something moved below."
+    },
+    {
+      prompt: "One mirror calls your name — touch it?",
+      yesText: "You touch the mirror; a warmth flows through you and an old song begins to play.",
+      noText: "You do not touch it. The song remains unheard and the mirror slowly dims."
+    }
+  ];
+  // --- END editable section ---
+
+  // Optional: final text after completing all YES steps
+  const FINAL_TEXT = "You reach the heart of the place. The world rearranges and you feel a quiet victory.";
+  const RESTART_LABEL = "Restart";
+
+  // Runtime state
+  let stepIndex = 0;
+  const questionText = document.getElementById('questionText');
+  const choiceButtons = document.getElementById('choiceButtons');
+  const storyArea = document.getElementById('storyArea');
+
+  // Initialize UI
+  function renderPrompt() {
+    // If stepIndex is past last step, show final and restart
+    if (stepIndex >= STEPS.length) {
+      questionText.textContent = "End of path.";
+      choiceButtons.innerHTML = '';
+      appendParagraph(FINAL_TEXT);
+      choiceButtons.appendChild(createRestartButton());
+      return;
+    }
+
+    // Show current prompt
+    questionText.textContent = STEPS[stepIndex].prompt;
+    choiceButtons.innerHTML = '';
+
+    // YES button
+    const yesBtn = document.createElement('button');
+    yesBtn.className = 'btn';
+    yesBtn.textContent = 'Yes';
+    yesBtn.addEventListener('click', () => {
+      // append yes text
+      appendParagraph(STEPS[stepIndex].yesText);
+      stepIndex++;
+      // if we've completed all steps after increment, show final
+      if (stepIndex >= STEPS.length) {
+        renderPrompt(); // will handle final
+      } else {
+        // show next prompt with new yes/no
+        renderPrompt();
+      }
+    });
+    choiceButtons.appendChild(yesBtn);
+
+    // NO button
+    const noBtn = document.createElement('button');
+    noBtn.className = 'btn';
+    noBtn.textContent = 'No';
+    noBtn.addEventListener('click', () => {
+      // append no text and show only restart
+      appendParagraph(STEPS[stepIndex].noText);
+      choiceButtons.innerHTML = '';
+      choiceButtons.appendChild(createRestartButton());
+      questionText.textContent = "(branch ended)";
+    });
+    choiceButtons.appendChild(noBtn);
+  }
+
+  // Utility: append paragraph to story area
+  function appendParagraph(text) {
+    const p = document.createElement('p');
+    p.style.margin = '10px 0';
+    p.textContent = text;
+    storyArea.appendChild(p);
+    // scroll into view
+    p.scrollIntoView({behavior:'smooth', block:'end'});
+  }
+
+  // Create a restart button element
+  function createRestartButton() {
+    const r = document.createElement('button');
+    r.className = 'btn';
+    r.textContent = RESTART_LABEL;
+    r.addEventListener('click', () => {
+      restartAdventure();
+    });
+    return r;
+  }
+
+  // Restart resets everything back to step 0 and clears story
+  function restartAdventure() {
+    stepIndex = 0;
+    storyArea.innerHTML = '';
+    renderPrompt();
+    // reset essay box content if you want (comment out if you prefer to keep essay)
+    // document.querySelector('.essay-box').innerHTML = '(write your essay here...)';
+  }
+
+  // On load
+  (function init(){
+    // show initial prompt
+    renderPrompt();
+  })();
+
+  </script>
+</body>
+</html>
