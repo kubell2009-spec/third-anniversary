@@ -201,7 +201,7 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~as i've said, i am by all means happy for them that they set off and built something of their own.~<br>~and you, somehow, managed to find this little piece of information.~<br><br>~then if i'm right...~<br><br>~welcome home, drana.~<br><br>the spirit begins to disintegrate.<br>in front of your eyes, tens of millions of seconds of history flash.<br>in its last efforts, the spirit creates a note made of hovering inscriptions:<br>https://";
+        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~as i've said, i am by all means happy for them that they set off and built something of their own.~<br>~and you, somehow, managed to find this little piece of information.~<br><br>~then if i'm right...~<br><br>~welcome home, drana.~<br><br>the spirit begins to disintegrate.<br>in front of your eyes, tens of millions of seconds of history flash.<br>in its last efforts, the spirit creates a note made of hovering inscriptions:<br><br>https://";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
