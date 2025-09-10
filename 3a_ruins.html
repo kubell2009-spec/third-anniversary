@@ -220,8 +220,8 @@ function renderPrompt() {
 
       } else {
         appendParagraph(step.failureText || "incorrect.");
-        choiceButtons.innerHTML = '';
-        choiceButtons.appendChild(createRestartButton());
+        input.value = "";
+        input.focus();
       }
     });
     choiceButtons.appendChild(submit);
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
