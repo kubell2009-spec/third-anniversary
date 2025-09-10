@@ -123,7 +123,7 @@ const STEPS = [
   {
     prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies some sort of ruins.<br>there are some inscriptions, mostly faded, but you can understand that whatever this used to be or whatever used to be here was the cause of the beginning of this universe.<br><br>do you step forward to see better what lies within, or do the runes scare you away?",
     yesText: "curiosity killed the cat; thankfully you don't have a cat.",
-    noText: "your impulses took hold. your adventure ends here.",
+    noText: "your impulses took hold.<br>your adventure ends here.",
     nextYes: 1,   // go to step 1 on YES
     nextNo: null
   },
@@ -131,7 +131,7 @@ const STEPS = [
   // step index 1
   {
     prompt: "with every step you take, more and more voices start echoing in your head, drowning out your thoughts.<br>whatever power resided here left its vestiges, and they are being activated by your presence.<br>some of the runes even seem to be flying out at you.<br><br>do you touch them?",
-    yesText: "the residue of this place is too much for you to handle. you burn from the inside out and die.",
+    yesText: "the residue of this place is too much for you to handle.<br>you burn from the inside out and die.",
     noText: "you reject them and keep moving forward towards the center.",
     nextYes: null,    // YES -> step 2
     nextNo: 2      // NO -> jump to step 4 (branch continues instead of ending)
@@ -140,8 +140,8 @@ const STEPS = [
   // step index 2
   {
     prompt: "as you walk slowly, you notice murals on the pillars.<br>they seem to grow in quantity and quality as you get closer to the center, it seems that there is still some arcane essence left that is preserving them.<br>one of the murals depicts a male playing some sort of instrument to a female, presumably for some special occasion.<br>another depicts that female giving a book to the male, full of pictures and sentences you can't understand.<br><br>as you make your way deeper inside, you see the radiant glow of a bright white orb, brighter than all of the runes you've seen.<br><br>will you turn back in its authority, or try to step forth?",
-    yesText: "you turn back, scared that it might be your end. your adventure will probably continue some other time.",
-    noText: "you continue. the orb pulses erratically, maybe it's sentient?",
+    yesText: "you turn back, scared that it might be your end.<br>your adventure can continue some other time.",
+    noText: "you continue.<br>the orb pulses erratically, maybe it's sentient?",
     nextYes: null,    // YES -> step 3
     nextNo: 3      // NO -> also goes to step 3 (both choices converge)
   },
@@ -150,7 +150,7 @@ const STEPS = [
   {
     prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br><br>do you state your purpose?",
     yesText: "[i don't know where i came from, and i don't know where i am.], you speak up.<br>[i want to discover the truth.]",
-    noText: "you feel scared. [i was just exploring this place, i'll be leaving now.] ~so soon? i was hoping your stay would be longer.~",
+    noText: "you feel scared.<br>[i was just exploring this place, i'll be leaving now.]<br>~so soon? i was hoping your stay would be longer.~",
     nextYes: 4,    // YES -> step 4
     nextNo: null   // NO -> ends
   },
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
