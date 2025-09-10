@@ -185,7 +185,7 @@ function renderPrompt() {
   }
 
   const step = STEPS[stepIndex];
-  questionText.textContent = step.prompt;
+  questionText.innerHTML = step.prompt;
   choiceButtons.innerHTML = '';
 
   // --- Special case: passcode step ---
@@ -201,7 +201,7 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        questionText.textContent = "";
+        questionText.textContent = "abcd";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
@@ -241,7 +241,7 @@ function renderPrompt() {
       choiceButtons.innerHTML = '';
       appendParagraph(step.endTextYes || '(branch ended)');
       choiceButtons.appendChild(createRestartButton());
-      questionText.textContent = "(branch ended)";
+      questionText.innerHTML = "(branch ended)";
     }
   });
   choiceButtons.appendChild(yesBtn);
@@ -258,7 +258,7 @@ function renderPrompt() {
       choiceButtons.innerHTML = '';
       appendParagraph(step.endTextNo || '(branch ended)');
       choiceButtons.appendChild(createRestartButton());
-      questionText.textContent = "(branch ended)";
+      questionText.innerHTML = "(branch ended)";
     }
   });
   choiceButtons.appendChild(noBtn);
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
