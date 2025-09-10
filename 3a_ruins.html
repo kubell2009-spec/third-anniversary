@@ -143,7 +143,7 @@ const STEPS = [
     yesText: "you continue. the orb pulses erratically, maybe it's sentient?",
     noText: "you turn back, scared that it might be your end. your adventure will probably continue some other time.",
     nextYes: 3,    // YES -> step 3
-    nextNo: 3      // NO -> also goes to step 3 (both choices converge)
+    nextNo: null      // NO -> also goes to step 3 (both choices converge)
   },
 
   // step index 3
@@ -151,22 +151,22 @@ const STEPS = [
     prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br><br>do you state your purpose?",
     yesText: "[i don't know where i came from, and i don't know where i am.], you speak up.<br>[i want to discover the truth.]",
     noText: "you feel scared. [i was just exploring this place, i'll be leaving now.] ~so soon? i was hoping your stay would be longer.~",
-    nextYes: 4,    // YES -> step 4
-    nextNo: null   // NO -> ends
+    nextYes: null,    // YES -> step 4
+    nextNo: 4   // NO -> ends
   },
 
   // step index 4 (passcode step)
 {
   type: "passcode",
-  prompt: "~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br><br>~",
+  prompt: "~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~it seems, though, that they all have grown up and left me.~<br>~good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
   correctCode: "swordfish",   // 🔑 change this
-  successText: "The pedestal glows... You receive CODE PART 3: XYZ123",  // <--- put your secret here
-  failureText: "The pedestal rumbles angrily. Wrong code.",
+  successText: "the spirit is satisfied.",  // <--- put your secret here
+  failureText: "the spirit is dissatisfied with that information.",
 }
 
 ];
 
-const RESTART_LABEL = "Restart";
+const RESTART_LABEL = "restart";
 
 /* --- runtime and UI references --- */
 let stepIndex = 0;
@@ -201,16 +201,16 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        questionText.textContent = "abcd";
+        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~as i've said, i am by all means happy for them that they set off and built something of their own.~<br>~and you, somehow, managed to find this little piece of information.~<br><br>~then if i'm right...~<br><br>~welcome home, drana.~<br><br>https://";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
         choiceButtons.innerHTML = '';
         const returnBtn = document.createElement('button');
         returnBtn.className = 'btn';
-        returnBtn.textContent = 'Return';
+        returnBtn.textContent = 'return';
         returnBtn.addEventListener('click', () => {
-          appendParagraph("Returning...");
+          appendParagraph("returning...");
           choiceButtons.innerHTML = '';
           setTimeout(() => {
             window.location.href = "3a_portal.html";
@@ -219,7 +219,7 @@ function renderPrompt() {
         choiceButtons.appendChild(returnBtn);
 
       } else {
-        appendParagraph(step.failureText || "Incorrect.");
+        appendParagraph(step.failureText || "incorrect.");
         choiceButtons.innerHTML = '';
         choiceButtons.appendChild(createRestartButton());
       }
@@ -231,7 +231,7 @@ function renderPrompt() {
   // --- Default case: YES/NO branching ---
   const yesBtn = document.createElement('button');
   yesBtn.className = 'btn';
-  yesBtn.textContent = 'Yes';
+  yesBtn.textContent = 'yes';
   yesBtn.addEventListener('click', () => {
     appendParagraph(step.yesText || '');
     if (typeof step.nextYes === 'number') {
@@ -248,7 +248,7 @@ function renderPrompt() {
 
   const noBtn = document.createElement('button');
   noBtn.className = 'btn';
-  noBtn.textContent = 'No';
+  noBtn.textContent = 'no';
   noBtn.addEventListener('click', () => {
     appendParagraph(step.noText || '');
     if (typeof step.nextNo === 'number') {
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
