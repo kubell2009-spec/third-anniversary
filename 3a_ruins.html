@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ASCII Adventure</title>
+  <title>genesis ruins</title>
 
   <!-- Use your existing stylesheet -->
   <link rel="stylesheet" href="3a_style.css">
@@ -140,10 +140,10 @@ const STEPS = [
   // step index 2
   {
     prompt: "as you walk slowly, you notice murals on the pillars.<br>they seem to grow in quantity and quality as you get closer to the center, it seems that there is still some arcane essence left that is preserving them.<br>one of the murals depicts a male playing some sort of instrument to a female, presumably for some special occasion.<br>another depicts that female giving a book to the male, full of pictures and sentences you can't understand.<br><br>as you make your way deeper inside, you see the radiant glow of a bright white orb, brighter than all of the runes you've seen.<br><br>will you turn back in its authority, or try to step forth?",
-    yesText: "you continue. the orb pulses erratically, maybe it's sentient?",
-    noText: "you turn back, scared that it might be your end. your adventure will probably continue some other time.",
-    nextYes: 3,    // YES -> step 3
-    nextNo: null      // NO -> also goes to step 3 (both choices converge)
+    yesText: "you turn back, scared that it might be your end. your adventure will probably continue some other time.",
+    noText: "you continue. the orb pulses erratically, maybe it's sentient?",
+    nextYes: null,    // YES -> step 3
+    nextNo: 3      // NO -> also goes to step 3 (both choices converge)
   },
 
   // step index 3
@@ -151,8 +151,8 @@ const STEPS = [
     prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br><br>do you state your purpose?",
     yesText: "[i don't know where i came from, and i don't know where i am.], you speak up.<br>[i want to discover the truth.]",
     noText: "you feel scared. [i was just exploring this place, i'll be leaving now.] ~so soon? i was hoping your stay would be longer.~",
-    nextYes: null,    // YES -> step 4
-    nextNo: 4   // NO -> ends
+    nextYes: 4,    // YES -> step 4
+    nextNo: null   // NO -> ends
   },
 
   // step index 4 (passcode step)
@@ -192,7 +192,7 @@ function renderPrompt() {
   if (step.type === "passcode") {
     const input = document.createElement('input');
     input.type = 'password';
-    input.placeholder = "Enter passcode";
+    input.placeholder = "enter passcode";
     input.className = "password-input";
     choiceButtons.appendChild(input);
 
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
