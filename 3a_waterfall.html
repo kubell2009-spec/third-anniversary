@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>genesis ruins</title>
+  <title>parafalls</title>
 
   <!-- Use your existing stylesheet -->
   <link rel="stylesheet" href="3a_style.css">
@@ -79,28 +79,35 @@
 
     <!-- ASCII art: lines are left-aligned but the whole block is centered -->
     <pre class="ascii">
-       _.-""}
-      / "" ;
-  .-"` __] ',               ___
-  I_ ""__.`-,;             |   |
-    I_.,-"ii"{             !___!
-    | ||  ||  |        ,    | |
-    | ||  ||  |       .;    | |
-    | ||  ||  |       | \   | |
-    | ||  ||  |       |  |  | |
-    | ||  ||  |       |  |  | |   __
-    | ||  ||  |       |  |  | |  |  |
-    | ||  ||  |   ;|  |  |  | |  |  |
-    | ||  ||  |"\_/`,_|  |  | |  |  |  ___.--""`\
-    | ||  ||  |       |  |\.| |=,|  |""          `,
-    | ||  ||  |       |  |  | |  |  |____________.-+.__
-   _:_!|_,'!__!       |  |  | |_,!  !         __,I   `"|
-  :     |      `-""`,.!__!-,!_!_ '--'`,_,--"""         |
-  |     ;___          `"-.-'    `,_.-'"            _..-'
-   `-._ |   """--,,_     |`""-.--'|         __.--""
-       `"--..__     ""--.|    |   |_,_  _.-'
-               ""--.._   `-,__!_.-' _,""
-                      ""--,____.--'"
+            _.-'\
+        _.-'     \
+    _.-'          \
+_.-_-'\         _.-'`-._
+  |\ _-|    _.-'_.-'`-._`-._
+  | |  |   |_.-'        `-._`-._|`-._
+\ \ |  |  /    /     _      ``---._  `-._
+ \ \|_-' | / /    .-' `-._|`-._    ``-._ `-._
+  \     || ||  / /|-'|`-._     `-._     `--._`-._|`-._
+   \_.-'   | |      |||   `-._     `-._      ``---._  `-._
+   |    |   | | |   |||    |||`-._     `-._|`-._    ``-._ `-._
+   |        |    __ |||    |||    `-._          `-._     `-._ `-._
+   |    |    |  |_.-|||.   |||        `-._       _.-'|       `-_.'|
+   |    |   |  ||/  ||| \  |||          _.-'|_.-'_.-'      _.-'   |
+   |     | | |  .   |||  . |||      _.-' __.---''      _.-'       |
+   |    |   |  ||   |||    |||'|_.-'_.-''     _.-'|_.-'        _.'
+   |    ||    ||    |||  |'|||----''      _.-'             _.-'
+   |       | |  |   |||   '|||   _.-'|_.-'             _.-'
+   |    |  ||  _.\  ||| /  |||.-'                  _.-'
+   |    | |  '  |_`.|||' _.-'                  _.-'
+   | _.-||  |  |    ||`-'                  _.-'
+   |`-._     |   _.-'                  _.-'
+   |    `-._ _.-'                  _.-'
+   |        |                  _.-'  
+   |        |              _.-'
+-._|        |          _.-'
+   `-._     |     _.-'
+       `-._ | _.-'
+           `|'
     </pre>
 
     <!-- Prompt + choices -->
@@ -121,25 +128,25 @@
 const STEPS = [
   // step index 0
   {
-    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies some sort of ruins.<br>there are some inscriptions, mostly faded, but you can understand that whatever this used to be or whatever used to be here was the cause of the beginning of this universe.<br><br>do you step forward to see better what lies within, or do the runes scare you away?",
-    yesText: "curiosity killed the cat; thankfully you don't have a cat.",
-    noText: "your impulses took hold.<br>your adventure ends here.",
-    nextYes: 1,   // go to step 1 on YES
-    nextNo: null
+    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies a peculiar waterfall, the water seems to be flowing back up into itself?<br>there isn't really any trace of civilization to tell you what this place is, only wildlife.<br>strangely enough, the water seems to be singing as well.<br>because of that, you assume it can talk too.<br><br>do you ask the river, or try to speak to the birds instead?",
+    yesText: "unfortunately the water only sings.<br>even more unfortunately, your foot slipped and you fell into the stream, losing your life from the fall.",
+    noText: "you call the birds, and they seem friendly enough.<br>they tell you about the story of this waterfall...",
+    nextYes: null,   // go to step 1 on YES
+    nextNo: 1
   },
 
   // step index 1
   {
-    prompt: "with every step you take, more and more voices start echoing in your head, drowning out your thoughts.<br>whatever power resided here left its vestiges, and they are being activated by your presence.<br>some of the runes even seem to be flying out at you.<br><br>do you touch them?",
-    yesText: "the residue of this place is too much for you to handle.<br>you burn from the inside out and die.",
-    noText: "you reject them and keep moving forward towards the center.",
-    nextYes: null,    // YES -> step 2
-    nextNo: 2      // NO -> jump to step 4 (branch continues instead of ending)
+    prompt: "-you know, there were once two people that lived here, a couple.-<br>-this place used to be their home.-<br><br>-every day, they would collect some wood to expand their cabin and collect some fruits and crops to eat.-<br>-they also killed some of the animals here occasionally...-<br><br>-not that it's a problem, they're always lenient and save enough for the animals to breed and grow back.-<br>-besides, they could talk to us animals just like you, and always made sure to fulfill the animal's wishes before letting them go.-<br>-some of us even saw it as a graceful act, giving us a chance to achieve things we normally wouldn't have been able to; obviously at the cost of our lives, though.-<br>-sort of like a once-in-a-lifetime experience.-<br><br>-you can see their cabin downstream over there if you want to give it a visit.-<br>-it's old and dusty though, and might just collapse.-<br><br>do you go to the cabin, or ask the birds to keep telling the story?",
+    yesText: "you walk.<br>slowly, as you want to enjoy the scenery.",
+    noText: "[is there anything else i should know, or anything that you want me to do?], you ask.",
+    nextYes: 2,    // YES -> step 2
+    nextNo: 3      // NO -> jump to step 4 (branch continues instead of ending)
   },
 
   // step index 2
   {
-    prompt: "as you walk slowly, you notice murals on the pillars.<br>they seem to grow in quantity and quality as you get closer to the center, it seems that there is still some arcane essence left that is preserving them.<br>one of the murals depicts a male playing some sort of instrument to a female, presumably for some special occasion.<br>another depicts that female giving a book to the male, full of pictures and sentences you can't understand.<br><br>as you make your way deeper inside, you see the radiant glow of a bright white orb, brighter than all of the runes you've seen.<br><br>will you turn back in its authority, or try to step forth?",
+    prompt: "",
     yesText: "you turn back, scared that it might be your end.<br>your adventure can continue some other time.",
     noText: "you continue.<br>the orb pulses erratically, maybe it's sentient?",
     nextYes: null,    // YES -> step 3
@@ -300,6 +307,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
