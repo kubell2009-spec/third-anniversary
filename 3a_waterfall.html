@@ -129,15 +129,15 @@ const STEPS = [
   // step index 0
   {
     prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies a peculiar waterfall, the water seems to be flowing back up into itself?<br>there isn't really any trace of civilization to tell you what this place is, only wildlife.<br>strangely enough, the water seems to be singing as well.<br>because of that, you assume it can talk too.<br><br>do you ask the river, or try to speak to the birds instead?",
-    yesText: "unfortunately the water only sings.<br>even more unfortunately, your foot slipped and you fell into the stream, losing your life from the fall.",
-    noText: "you call the birds, and they seem friendly enough.<br>they tell you about the story of this waterfall...",
+    yesText: "unfortunately, the water only sings.<br>even more unfortunately, your foot slipped and you fell into the stream, losing your life from the fall.",
+    noText: "you call the birds.",
     nextYes: null,   // go to step 1 on YES
     nextNo: 1
   },
 
   // step index 1
   {
-    prompt: "-you know, there were once two people that lived here, a couple.-<br>-this place used to be their home.-<br><br>-every day, they would collect some wood to expand their cabin and collect some fruits and crops to eat.-<br>-they also killed some of the animals here occasionally...-<br><br>-not that it's a problem, they're always lenient and save enough for the animals to breed and grow back.-<br>-besides, they could talk to us animals just like you, and always made sure to fulfill the animal's wishes before letting them go.-<br>-some of us even saw it as a graceful act, giving us a chance to achieve things we normally wouldn't have been able to; obviously at the cost of our lives, though.-<br>-sort of like a once-in-a-lifetime experience.-<br><br>-you can see their cabin downstream over there if you want to give it a visit.-<br>-it's old and dusty though, and might just collapse.-<br><br>do you go to the cabin, or ask the birds to keep telling the story?",
+    prompt: "the birds seem friendly enough, and they fly down closer to talk to you.<br><br>they chirp:<br>-hi, you seem lost.-<br>-do you need any help?-<br><br>[yes, i do.], you reply.<br>[i don't know what this place is, and i'm trying to find out where i came from.]<br>-you don't?-<br>-then let us tell you a story.-<br><br>-you know, there were once two people that lived here, a couple.-<br>-this place used to be their home.-<br><br>-every day, they would collect some wood to expand their cabin and collect some fruits and crops to eat.-<br>-they also killed some of the animals here occasionally...-<br><br>-not that it's a problem, they're always lenient and save enough for the animals to breed and grow back.-<br>-besides, they could talk to us animals just like you, and always made sure to fulfill the animal's wishes before letting them go.-<br>-some of us even saw it as a graceful act, giving us a chance to achieve things we normally wouldn't have been able to; obviously at the cost of our lives, though.-<br>-sort of like a once-in-a-lifetime experience.-<br><br>-you can see their cabin downstream over there if you want to give it a visit.-<br>-it's old and dusty though, and might just collapse.-<br><br>do you go to the cabin, or ask the birds to keep telling the story?",
     yesText: "you walk.<br>slowly, as you want to enjoy the scenery.",
     noText: "[is there anything else i should know, or anything that you want me to do?], you ask.",
     nextYes: 2,    // YES -> step 2
@@ -146,29 +146,29 @@ const STEPS = [
 
   // step index 2
   {
-    prompt: "",
-    yesText: "you turn back, scared that it might be your end.<br>your adventure can continue some other time.",
-    noText: "you continue.<br>the orb pulses erratically, maybe it's sentient?",
-    nextYes: null,    // YES -> step 3
-    nextNo: 3      // NO -> also goes to step 3 (both choices converge)
+    prompt: "you reach the cabin, a dilapidated structure that once housed two lovers.<br>as you take the first step up the little set of stairs into the house, the entire construct shifts.<br>maybe it really wasn't a good idea to come here... but it's too late to turn back now.<br><br>you enter.<br>inside are two old crude guitar-looking instruments, two large stuffed animals plus lots of small ones, some weights, and lots of love in the air; still there after years of weathering.<br>most of the furniture, though, have rotted; leaving only a mostly dusty and empty room.<br>beneath one of the floorboards,  you find a note hidden away, only revealed due to antiquity.<br>however, it is also because of that that the floor is unstable there.<br><br>open it?",
+    yesText: "you pick up the note.<br>it has only four words: 'accepting the true identity'.",
+    noText: "you don't pick up the note, and return to the birds.",
+    nextYes: 3,    // YES -> step 3
+    nextNo: 3     // NO -> also goes to step 3 (both choices converge)
   },
 
   // step index 3
   {
-    prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br><br>do you state your purpose?",
-    yesText: "[i don't know where i came from, and i don't know where i am.], you speak up.<br>[i want to discover the truth.]",
-    noText: "you feel scared.<br>[i was just exploring this place, i'll be leaving now.]<br>~so soon? i was hoping your stay would be longer.~",
+    prompt: "as the birds fly around you, they seem to have remembered something.<br>-this waterfall is much like their relationship back then.-<br>-it was boring and repetitive, and they tried to find a way out.-<br>-eventually they did, and it would fix it once and for all.<br>we never knew what it was, but apparently they wrote it on a note.-<br>-at some point, though, they wouldn't need the note to remember why they loved each other anymore, so they just left it somewhere in their cabin.-<br><br>-have you found it?-<br>-if not, you can go get it, we'll wait right here.-<br>-we don't want to go in ourselves since we respect them, but you, you're just like them.-",
+    yesText: "[i have found the note already, and it reads: 'accepting the true identity'.]",
+    noText: "[no i haven't, i'll be going now.]",
     nextYes: 4,    // YES -> step 4
-    nextNo: null   // NO -> ends
+    nextNo: 2   // NO -> ends
   },
 
   // step index 4 (passcode step)
 {
   type: "passcode",
-  prompt: "~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~regrettably, they have grown up and left me.~<br>~good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
+  prompt: "the birds think for a moment.<br><br>-well, we don't know what that's supposed to mean.-<br>-but we suppose you can!-<br>-you look like them, so surely you can think like them.-<br><br>-you'll know you got something right when you get a reaction from the river.",
   correctCode: "swordfish",   // 🔑 change this
-  successText: "the spirit is satisfied.",  // <--- put your secret here
-  failureText: "the spirit is dissatisfied with that information.",
+  successText: "the river shifts.",  // <--- put your secret here
+  failureText: "the river remains unchanged.",
 }
 
 ];
@@ -208,7 +208,7 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~in any case...~<br><br>~you somehow managed to find this little piece of information.~<br>~then if i'm right...~<br><br>~welcome home, drana.~<br><br>the spirit begins to disintegrate in front of your eyes.<br>images moving and still pass by in an instant, an archive for millions of moments.<br>the spirit winces as it searches through the maelstrom.<br><br>in its final moments, you see it smile, and finally fade away.<br>where it hovered, a note made of hovering inscriptions:<br><br>https://";
+        questionText.innerHTML = "the river rumbles.<br>in fact, the ground itself rumbles.<br>the stream morphs, breaking the loop.<br><br>the water no longer sings, but quietly flows towards the sunset.<br>it is no longer trying to express itself, yet at rest for it knows there is something that understands it.<br><br>you turn towards the birds.<br><br>-we already know who you are, your face looks too familiar.-<br>-has this helped you remember?-<br>-if not, you better hurry up.-<br>-he has never forgotten about you.-<br><br>-one last thing, he wrote something on the back of the note.-<br><br>you flip the slip around.<br>just some unintelligible string of characters:<br><br>tinyurl.com/";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
@@ -307,6 +307,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
