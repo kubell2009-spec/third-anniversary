@@ -158,7 +158,7 @@ const STEPS = [
   // step index 4 (passcode step)
 {
   type: "passcode",
-  prompt: "~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~regrettably, they have grown up and left me.~<br>~good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
+  prompt: "~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~regrettably, they have grown up and left me.~<br>~by all means, though, good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
   correctCode: "swordfish",   // 🔑 change this
   successText: "the spirit is satisfied.",  // <--- put your secret here
   failureText: "the spirit is dissatisfied with that information.",
@@ -201,7 +201,7 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~in any case...~<br><br>~you somehow managed to find this little piece of information.~<br>~then if i'm right...~<br><br>~welcome home, drana.~<br><br>the spirit begins to disintegrate in front of your eyes.<br>images moving and still pass by in an instant, an archive for millions of moments.<br>the spirit winces as it searches through the maelstrom.<br><br>in its final moments, you see it smile, and finally fade away.<br>where it hovered, a note made of hovering inscriptions:<br><br>https://";
+        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~in any case...~<br><br>~you somehow managed to find this little piece of information.~<br>~then if i'm right...~<br><br>~welcome home, drana.~<br>~i know you've built many wonderful things with him ever since you two began.~<br><br>the spirit begins to disintegrate in front of your eyes.<br>images moving and still pass by in an instant, an archive for millions of moments.<br>the spirit winces as it searches through the maelstrom.<br><br>in its final moments, you see it smile, and finally fade away.<br>where it hovered, a note made of hovering inscriptions:<br><br>https://";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
