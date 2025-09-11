@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>genesis ruins</title>
+
+  <!-- Use your existing stylesheet -->
+  <link rel="stylesheet" href="3a_style.css">
+
+  <!-- Minimal layout tweaks (safe even if you already have these in 3a_style.css) -->
+  <style>
+    /* Ensure container and ascii positioning are correct */
+    body { margin:0; min-height:100vh; display:flex; justify-content:center; align-items:center; }
+    .container { text-align:center; width:100%; max-width:1100px; padding:28px; box-sizing:border-box; }
+
+    /* ASCII block centered as an inline-block, but text inside left aligned */
+    pre.ascii {
+      display:inline-block;   /* shrink-wrap so centering works */
+      text-align:left;        /* keep ASCII lines left-aligned */
+      white-space:pre;
+      margin: 0 0 18px 0;
+      font-family: monospace;
+      line-height:1.05;
+    }
+
+    /* Essay / long text box: contenteditable so typed text can be justified */
+    .essay-box {
+      width: 90%;
+      max-width: 900px;
+      min-height: 260px;
+      padding: 14px;
+      box-sizing: border-box;
+      border: 2px solid #0f0;  /* will match your neon green */
+      background: #000;        /* keeps the theme */
+      color: #0f0;
+      margin: 14px auto;
+      text-align: justify;     /* make written paragraphs look like an essay */
+      outline: none;
+      overflow:auto;
+      font-family: monospace;
+    }
+
+    /* Prompt area (question + buttons) centered */
+    .prompt {
+      margin-top: 18px;
+    }
+    .prompt .question {
+      margin-bottom: 12px;
+      max-width: 900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align: center;
+    }
+
+    /* Buttons container (uses .btn from your stylesheet) */
+    .choices { margin-top: 8px; }
+
+    /* Story area where appended texts appear */
+    .story {
+      margin-top: 18px;
+      max-width: 900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align: left; /* story paragraphs left aligned inside centered column */
+      font-family: monospace;
+      line-height:1.4;
+    }
+
+    /* Restart button styling fallback if .btn isn't loaded for some reason */
+    button.btn { /* should match your 3a_style.css .btn, safe fallback */
+      display:inline-block; padding:10px 18px; margin:6px; cursor:pointer;
+      border:1px solid #0f0; background:#000; color:#0f0; font-family:monospace; font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ASCII art: lines are left-aligned but the whole block is centered -->
+    <pre class="ascii">
+       _.-""}
+      / "" ;
+  .-"` __] ',               ___
+  I_ ""__.`-,;             |   |
+    I_.,-"ii"{             !___!
+    | ||  ||  |        ,    | |
+    | ||  ||  |       .;    | |
+    | ||  ||  |       | \   | |
+    | ||  ||  |       |  |  | |
+    | ||  ||  |       |  |  | |   __
+    | ||  ||  |       |  |  | |  |  |
+    | ||  ||  |   ;|  |  |  | |  |  |
+    | ||  ||  |"\_/`,_|  |  | |  |  |  ___.--""`\
+    | ||  ||  |       |  |\.| |=,|  |""          `,
+    | ||  ||  |       |  |  | |  |  |____________.-+.__
+   _:_!|_,'!__!       |  |  | |_,!  !         __,I   `"|
+  :     |      `-""`,.!__!-,!_!_ '--'`,_,--"""         |
+  |     ;___          `"-.-'    `,_.-'"            _..-'
+   `-._ |   """--,,_     |`""-.--'|         __.--""
+       `"--..__     ""--.|    |   |_,_  _.-'
+               ""--.._   `-,__!_.-' _,""
+                      ""--,____.--'"
+    </pre>
+
+    <!-- Prompt + choices -->
+    <div class="prompt" id="promptArea">
+      <div class="question" id="questionText"> <!-- question text injected here --> </div>
+
+      <div class="choices" id="choiceButtons">
+        <!-- choice buttons are injected by JS -->
+      </div>
+    </div>
+
+    <!-- Where story output appears -->
+    <div class="story" id="storyArea" aria-live="polite"></div>
+  </div>
+
+<script>
+/* --- EDITABLE: define steps and branching here --- */
+const STEPS = [
+  // step index 0
+  {
+    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies some sort of ruins.<br>there are some inscriptions, mostly faded, but you can understand that whatever this used to be or whatever used to be here was the cause of the beginning of this universe.<br><br>do you step forward to see better what lies within, or do the runes scare you away?",
+    yesText: "curiosity killed the cat; thankfully you don't have a cat.",
+    noText: "your impulses took hold.<br>your adventure ends here.",
+    nextYes: 1,   // go to step 1 on YES
+    nextNo: null
+  },
+
+  // step index 1
+  {
+    prompt: "with every step you take, more and more voices start echoing in your head, drowning out your thoughts.<br>whatever power resided here left its vestiges, and they are being activated by your presence.<br>some of the runes even seem to be flying out at you.<br><br>do you touch them?",
+    yesText: "the residue of this place is too much for you to handle.<br>you burn from the inside out and die.",
+    noText: "you reject them and keep moving forward towards the center.",
+    nextYes: null,    // YES -> step 2
+    nextNo: 2      // NO -> jump to step 4 (branch continues instead of ending)
+  },
+
+  // step index 2
+  {
+    prompt: "as you walk slowly, you notice murals on the pillars.<br>they seem to grow in quantity and quality as you get closer to the center, it seems that there is still some arcane essence left that is preserving them.<br>one of the murals depicts a male playing some sort of instrument to a female, presumably for some special occasion.<br>another depicts that female giving a book to the male, full of pictures and sentences you can't understand.<br><br>as you make your way deeper inside, you see the radiant glow of a bright white orb, brighter than all of the runes you've seen.<br><br>will you turn back in its authority, or try to step forth?",
+    yesText: "you turn back, scared that it might be your end.<br>your adventure can continue some other time.",
+    noText: "you continue.<br>the orb pulses erratically, maybe it's sentient?",
+    nextYes: null,    // YES -> step 3
+    nextNo: 3      // NO -> also goes to step 3 (both choices converge)
+  },
+
+  // step index 3
+  {
+    prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br><br>do you state your purpose?",
+    yesText: "[i don't know where i came from, and i don't know where i am.], you speak up.<br>[i want to discover the truth.]",
+    noText: "you feel scared.<br>[i was just exploring this place, i'll be leaving now.]<br>~so soon? i was hoping your stay would be longer.~",
+    nextYes: 4,    // YES -> step 4
+    nextNo: null   // NO -> ends
+  },
+
+  // step index 4 (passcode step)
+{
+  type: "passcode",
+  prompt: "~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~regrettably, they have grown up and left me.~<br>~good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
+  correctCode: "swordfish",   // 🔑 change this
+  successText: "the spirit is satisfied.",  // <--- put your secret here
+  failureText: "the spirit is dissatisfied with that information.",
+}
+
+];
+
+const RESTART_LABEL = "restart";
+
+/* --- runtime and UI references --- */
+let stepIndex = 0;
+const questionText = document.getElementById('questionText');
+const choiceButtons = document.getElementById('choiceButtons');
+const storyArea = document.getElementById('storyArea');
+
+/* Render the current prompt according to nextYes/nextNo */
+function renderPrompt() {
+  if (stepIndex >= STEPS.length) {
+    questionText.textContent = "End of path.";
+    choiceButtons.innerHTML = '';
+    appendParagraph(FINAL_TEXT);
+    choiceButtons.appendChild(createRestartButton());
+    return;
+  }
+
+  const step = STEPS[stepIndex];
+  questionText.innerHTML = step.prompt;
+  choiceButtons.innerHTML = '';
+
+  // --- Special case: passcode step ---
+  if (step.type === "passcode") {
+    const input = document.createElement('input');
+    input.type = 'password';
+    input.placeholder = "enter passcode";
+    input.className = "password-input";
+    choiceButtons.appendChild(input);
+
+    const submit = document.createElement('button');
+    submit.className = 'btn';
+    submit.textContent = 'Submit';
+    submit.addEventListener('click', () => {
+      if (input.value === step.correctCode) {
+        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~in any case...~<br><br>~you somehow managed to find this little piece of information.~<br>~then if i'm right...~<br><br>~welcome home, drana.~<br><br>the spirit begins to disintegrate in front of your eyes.<br>images moving and still pass by in an instant, an archive for millions of moments.<br>the spirit winces as it searches through the maelstrom.<br><br>in its final moments, you see it smile, and finally fade away.<br>where it hovered, a note made of hovering inscriptions:<br><br>https://";
+        appendParagraph(step.successText || "Correct!");
+
+        // ✅ Instead of restart, show Return button
+        choiceButtons.innerHTML = '';
+        const returnBtn = document.createElement('button');
+        returnBtn.className = 'btn';
+        returnBtn.textContent = 'return';
+        returnBtn.addEventListener('click', () => {
+          appendParagraph("returning...");
+          choiceButtons.innerHTML = '';
+          setTimeout(() => {
+            window.location.href = "3a_portal.html";
+          }, 1000); // 1000 ms = 1 second
+        });
+        choiceButtons.appendChild(returnBtn);
+
+      } else {
+        appendParagraph(step.failureText || "incorrect.");
+        input.value = "";
+        input.focus();
+      }
+    });
+    choiceButtons.appendChild(submit);
+    return; // stop here so YES/NO buttons aren't created
+  }
+
+  // --- Default case: YES/NO branching ---
+  const yesBtn = document.createElement('button');
+  yesBtn.className = 'btn';
+  yesBtn.textContent = 'yes';
+  yesBtn.addEventListener('click', () => {
+    appendParagraph(step.yesText || '');
+    if (typeof step.nextYes === 'number') {
+      stepIndex = step.nextYes;
+      renderPrompt();
+    } else {
+      choiceButtons.innerHTML = '';
+      appendParagraph(step.endTextYes || '(branch ended)');
+      choiceButtons.appendChild(createRestartButton());
+      questionText.innerHTML = "(branch ended)";
+    }
+  });
+  choiceButtons.appendChild(yesBtn);
+
+  const noBtn = document.createElement('button');
+  noBtn.className = 'btn';
+  noBtn.textContent = 'no';
+  noBtn.addEventListener('click', () => {
+    appendParagraph(step.noText || '');
+    if (typeof step.nextNo === 'number') {
+      stepIndex = step.nextNo;
+      renderPrompt();
+    } else {
+      choiceButtons.innerHTML = '';
+      appendParagraph(step.endTextNo || '(branch ended)');
+      choiceButtons.appendChild(createRestartButton());
+      questionText.innerHTML = "(branch ended)";
+    }
+  });
+  choiceButtons.appendChild(noBtn);
+}
+
+/* Utility to append story paragraphs */
+function appendParagraph(text) {
+  const p = document.createElement('p');
+  p.style.margin = '10px 0';
+  p.innerHTML = text;
+  storyArea.appendChild(p);
+  p.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+/* Restart button */
+function createRestartButton() {
+  const r = document.createElement('button');
+  r.className = 'btn';
+  r.textContent = RESTART_LABEL;
+  r.addEventListener('click', () => {
+    restartAdventure();
+  });
+  return r;
+}
+
+function restartAdventure() {
+  stepIndex = 0;
+  storyArea.innerHTML = '';
+  renderPrompt();
+  // optional: reset essay box
+  // document.querySelector('.essay-box').innerHTML = '(write your essay here...)';
+}
+
+/* Initialize */
+(function init(){
+  renderPrompt();
+})();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
