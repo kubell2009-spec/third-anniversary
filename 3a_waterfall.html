@@ -155,7 +155,7 @@ const STEPS = [
 
   // step index 3
   {
-    prompt: "as the birds fly around you, they seem to have remembered something.<br>-this waterfall is much like their relationship back then.-<br>-it was boring and repetitive, and they tried to find a way out.-<br>-eventually they did, and it would fix it once and for all.<br>we never knew what it was, but apparently they wrote it on a note.-<br>-at some point, though, they wouldn't need the note to remember why they loved each other anymore, so they just left it somewhere in their cabin.-<br><br>-have you found it?-<br>-if not, you can go get it, we'll wait right here.-<br>-we don't want to go in ourselves since we respect them, but you, you're just like them.-",
+    prompt: "as the birds fly around you, they seem to have remembered something.<br>-this waterfall is much like their relationship back then.-<br>-it was boring and repetitive, and they tried to find a way out.-<br>-eventually they did, and it would fix it once and for all.<br>we never knew what it was, but apparently they wrote it on a note.-<br>-at some point, though, they wouldn't need the note to remember why they loved each other anymore, so they just left it somewhere in their cabin.-<br><br>-have you found it?-<br>-if not, you can go get it, we'll wait right here.-<br>-we don't want to go in ourselves since we respect them, but you, you're just like them.-<br>-you qualify much better.-",
     yesText: "[i have found the note already, and it reads: 'accepting the true identity'.]",
     noText: "[no i haven't, i'll be going now.]",
     nextYes: 4,    // YES -> step 4
@@ -165,7 +165,7 @@ const STEPS = [
   // step index 4 (passcode step)
 {
   type: "passcode",
-  prompt: "the birds think for a moment.<br><br>-well, we don't know what that's supposed to mean.-<br>-but we suppose you can!-<br>-you look like them, so surely you can think like them.-<br><br>-you'll know you got something right when you get a reaction from the river.",
+  prompt: "the birds think for a moment.<br><br>-well, we suppose you can decipher what the note means.-<br>-you look like them, so surely you can think like them.-<br><br>-you'll know you got something right when you get a reaction from the river.-",
   correctCode: "swordfish",   // 🔑 change this
   successText: "the river shifts.",  // <--- put your secret here
   failureText: "the river remains unchanged.",
@@ -307,6 +307,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
