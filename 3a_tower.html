@@ -124,23 +124,23 @@ const STEPS = [
   {
     prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies a tall tower, with two smaller ones beside it.<br>around you is an empty field, there isn't really anywhere else to go.<br><br>you see ghosts flying in and out of the windows of the towers.<br>that's a surefire sign that this thing is haunted.<br><br>do you go in, or stay out here?",
     yesText: "as you inch close, one of the ghosts possesses you.<br>it makes you smash your head into a wall, which kills you.",
-    noText: "you observe, hoping to find a way to get the ghosts' approval.",
+    noText: "you observe.",
     nextYes: null,   // go to step 1 on YES
     nextNo: 1
   },
 
   // step index 1
   {
-    prompt: "as you look around, you notice a few key things.<br><br>there are some trees around you, with fallen branches under them.<br>stones litter the ground.<br>besides that, though, nothing significant.<br><br>you turn your attention to the towers.<br>they're surely old, a lot of the bricks have fallen out already.<br>near the ground, there is a relatively large gap of missing material that you can see through.<br><br>you can see a painting on the inside.<br>a male and a female, disheartened because of the distance between them.<br><br>one of the branches is large enough for you to draw on the ground with.<br>do you replicate the painting, or do you draw the opposite?",
-    yesText: "the residue of this place is too much for you to handle.<br>you burn from the inside out and die.",
-    noText: "you reject them and keep moving forward towards the center.",
-    nextYes: null,    // YES -> step 2
-    nextNo: 2      // NO -> jump to step 4 (branch continues instead of ending)
+    prompt: "the ghosts seem to be wrapped up in their own things.<br>you try to think of a way to present yourself so that they would not become angered.<br>as you look around, you notice a few key things.<br><br>there are some trees around you, with fallen branches under them.<br>stones litter the ground.<br>besides that, though, nothing significant.<br><br>you turn your attention to the towers.<br>they're surely old, a lot of the bricks have fallen out already.<br>near the ground, there is a relatively large gap of missing material that you can see through.<br><br>you can see a painting on the inside.<br>a male and a female, disheartened because of the distance between them.<br><br>one of the branches is large enough for you to draw on the ground with.<br>do you replicate the painting, or do you draw the opposite?",
+    yesText: "the phantoms see your drawing and realizes what it is.",
+    noText: "the phantoms see your drawing.<br>they become offended and kill you.",
+    nextYes: 2,    // YES -> step 2
+    nextNo: null      // NO -> jump to step 4 (branch continues instead of ending)
   },
 
   // step index 2
   {
-    prompt: "as you walk slowly, you notice murals on the pillars.<br>they seem to grow in quantity and quality as you get closer to the center, it seems that there is still some arcane essence left that is preserving them.<br>one of the murals depicts a male playing some sort of instrument to a female, presumably for some special occasion.<br>another depicts that female giving a book to the male, full of pictures and sentences you can't understand.<br><br>as you make your way deeper inside, you see the radiant glow of a bright white orb, brighter than all of the runes you've seen.<br><br>will you turn back in its authority, or try to step forth?",
+    prompt: "one of the ghosts fly over.<br>it asks you:<br><br>=how do you know of this painting?=<br>=do you know what it is?=<br>[not really.], you say; [but i would appreciate it if you could tell me?]<br>=certainly, though it's a long story.=<br><br>=long ago, there was a boy and his partner who looked much like you.=<br>=this was one of their settlements.=<br>=we hadn't existed back then, they created us for a more vibrant atmosphere.=<br>=the other ghosts have missed them since they left, which is why they're so irritable right now.=<br><br>=anyway, that painting was drawn together by the couple, as a reminder of what they had to go through.=<br>=it was a time when they had no physical connection, and only spoke through telepathy.=<br>=both of them agreed that it was a bad time to go through, but they also both agreed about its importance as a stepping stone for their relationship.=<br>=hence why we respect it too.=<br><br>=enough talk, do you want to head inside?=<br>=i can ask the others to let you in.=",
     yesText: "you turn back, scared that it might be your end.<br>your adventure can continue some other time.",
     noText: "you continue.<br>the orb pulses erratically, maybe it's sentient?",
     nextYes: null,    // YES -> step 3
@@ -301,6 +301,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
