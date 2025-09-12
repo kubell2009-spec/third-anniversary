@@ -141,17 +141,17 @@ const STEPS = [
   // step index 2
   {
     prompt: "one of the ghosts fly over.<br>it asks you:<br><br>=how do you know of this painting?=<br>=do you know what it is?=<br>[not really.], you say; [but i would appreciate it if you could tell me?]<br>=certainly, though it's a long story.=<br><br>=long ago, there was a boy and his partner who looked much like you.=<br>=this was one of their settlements.=<br>=we hadn't existed back then, they created us for a more vibrant atmosphere.=<br>=the other ghosts have missed them since they left, which is why they're so irritable right now.=<br><br>=anyway, that painting was drawn together by the couple, as a reminder of what they had to go through.=<br>=it was a time when they had no physical connection, and only spoke through telepathy.=<br>=both of them agreed that it was a bad time to go through, but they also both agreed about its importance as a stepping stone for their relationship.=<br>=hence why we respect it too.=<br><br>=enough talk, do you want to head inside?=<br>=i can ask the others to let you in.=",
-    yesText: "you turn back, scared that it might be your end.<br>your adventure can continue some other time.",
-    noText: "you continue.<br>the orb pulses erratically, maybe it's sentient?",
-    nextYes: null,    // YES -> step 3
-    nextNo: 3      // NO -> also goes to step 3 (both choices converge)
+    yesText: "you agree.",
+    noText: "you disagree.<br>[it's fine.]<br>[i don't want to disturb the peace of this place.]",
+    nextYes: 3,    // YES -> step 3
+    nextNo: null      // NO -> also goes to step 3 (both choices converge)
   },
 
   // step index 3
   {
-    prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br><br>do you state your purpose?",
-    yesText: "[i don't know where i came from, and i don't know where i am.], you speak up.<br>[i want to discover the truth.]",
-    noText: "you feel scared.<br>[i was just exploring this place, i'll be leaving now.]<br>~so soon? i was hoping your stay would be longer.~",
+    prompt: "the ghost speaks to the others in a tongue you can't understand.<br>however, you can sense their approval from their expressions.<br>=they're letting you in.=<br><br>=oh, and don't bother with the little side towers.=<br>=they were made for us.=<br>=each would have their own little tower to call home, but the ones further away from the main tower have all decayed, as we have fully dedicated our strength to preserving the main tower, and collaterally the side towers near it.=<br>=now then, shall we?=<br><br>you walk up the winding spiral staircase inside, careful not to trip on missing steps.<br>the walls are decorated with special artefacts, inscriptions and more paintings.<br>you assume they hold some intangible meaning, like the bracelet with the name of a mythological creature on it.<br><br>eventually, you reach the top of the tower, where there is a room equipped with everything needed to sustain life.<br><br>there are lots of cabinets and drawers, do you check them?",
+    yesText: "",
+    noText: "",
     nextYes: 4,    // YES -> step 4
     nextNo: null   // NO -> ends
   },
@@ -301,6 +301,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
