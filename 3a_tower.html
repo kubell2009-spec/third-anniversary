@@ -89,15 +89,15 @@
       `-. (   )          [UUUUI_I_I_I_I
          `-..'            |[__I_I_[#]_I .        .
                    +      |__[I_I_I=I_I
-         .       ._    +  |]_ I_[#]-I_I    ._          ;
-                 |~       |_[ I_I=I_I_[,   |~
-               uuuuu      |__ I_I_I%I_I  uuuuu
-               | #_|      |[ _$_I_I%%_I  | _ |
-               |-  [      | [ %%I_g%%_I  |  -|         __a:f
-          ---..|_  |.--,,'|]_ %_Ia%%I_I -|_- |.------""
-               |_-#|  ((  |_[ $%I%%_!^!  | _ |      +
-               |   |   )) |[_ |%.%I_|"|  |_  |    n Am   n
-             .-[_A_]_ '/  |_ / _Y_)_|`| -[N__]_        n
+         .       ._    +  |]_ /   \-I_I    ._          ;
+                 |~       |_[|     |I_[,   |~
+               uuuuu      |__|     |I_I  uuuuu
+               | #_|      |[ |TTTTT|I_I  | _ |
+               |-  [      | [ %%I_g_%_I  |  -|         __a:f
+          ---..|_  |.--,,'|]_ %_IaI_I_I -|_- |.------""
+               |_-#|  ((  |_[   ]_I_!^!  | _ |      +
+               |   |   )) |_[     ]_|"|  |_  |    n Am   n
+             .-[_A_]_ '/  |_ T _Y_)_|`| -[N__]_        n
          ._.'        `- _.--'`'  ' "|\=\ ''    `-.
                       .'             |\=\`-._     `
                    .-'                  `:.  `---....__
@@ -122,16 +122,16 @@
 const STEPS = [
   // step index 0
   {
-    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies a peculiar waterfall, the water seems to be flowing back up into itself?<br>there are some inscriptions, mostly faded, but you can understand that whatever this used to be or whatever used to be here was the cause of the beginning of this universe.<br><br>do you step forward to see better what lies within, or do the runes scare you away?",
-    yesText: "curiosity killed the cat; thankfully you don't have a cat.",
-    noText: "your impulses took hold.<br>your adventure ends here.",
-    nextYes: 1,   // go to step 1 on YES
-    nextNo: null
+    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies a tall tower, with two smaller ones beside it.<br>around you is an empty field, there isn't really anywhere else to go.<br><br>you see ghosts flying in and out of the windows of the towers.<br>that's a surefire sign that this thing is haunted.<br><br>do you go in, or stay out here?",
+    yesText: "as you inch close, one of the ghosts possesses you.<br>it makes you smash your head into a wall, which kills you.",
+    noText: "you observe, hoping to find a way to get the ghosts' approval.",
+    nextYes: null,   // go to step 1 on YES
+    nextNo: 1
   },
 
   // step index 1
   {
-    prompt: "with every step you take, more and more voices start echoing in your head, drowning out your thoughts.<br>whatever power resided here left its vestiges, and they are being activated by your presence.<br>some of the runes even seem to be flying out at you.<br><br>do you touch them?",
+    prompt: "there are a few trees around you, with fallen branches under them.<br>stones litter the ground.<br>besides sticks and stones, nothing of note.<br><br>you turn your attention to the towers.<br>they're surely old, a lot of the bricks have fallen out already.<br>near the ground, there is a relatively large gap of missing material that you can see through.<br><br>you can see a painting on the inside.<br>a male and a female, disheartened because of the distance between them.<br><br>one of the branches is large enough for you to draw on the ground with.<br>do you replicate the painting, or do you draw the opposite?",
     yesText: "the residue of this place is too much for you to handle.<br>you burn from the inside out and die.",
     noText: "you reject them and keep moving forward towards the center.",
     nextYes: null,    // YES -> step 2
@@ -301,6 +301,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
