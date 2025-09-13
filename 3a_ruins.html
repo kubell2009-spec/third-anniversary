@@ -121,7 +121,7 @@
 const STEPS = [
   // step index 0
   {
-    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies some sort of ruins.<br>there are some inscriptions, mostly faded, but you can understand that whatever this used to be or whatever used to be here was the cause of the beginning of this universe.<br><br>do you step forward to see better what lies within, or do the runes scare you away?",
+    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies some sort of ruins.<br>seems to be a temple of sorts.<br>the ceiling and some of the pillars supporting it have broken, now rubble lying on the ground.<br>it's not going to be easy walking on it.<br><br>there are some inscriptions, mostly faded, but you can understand that whatever this used to be or whatever used to be here was the cause of the beginning of this universe.<br>there seems to be the existence of an entity which you see is depicted as being nothing and everything at once.<br><br>do you step forward to see better what lies within, or do the runes scare you away?",
     yesText: "curiosity killed the cat; thankfully you don't have a cat.",
     noText: "your impulses took hold.<br>your adventure ends here.",
     nextYes: 1,   // go to step 1 on YES
@@ -130,7 +130,7 @@ const STEPS = [
 
   // step index 1
   {
-    prompt: "with every step you take, more and more voices start echoing in your head, drowning out your thoughts.<br>whatever power resided here left its vestiges, and they are being activated by your presence.<br>some of the runes even seem to be flying out at you.<br><br>do you touch them?",
+    prompt: "with every step you take, more and more voices start echoing in your head, drowning out your thoughts.<br>whatever power resided here left its vestiges, and they are being activated by your presence.<br>words and drawings on the ground and walls light up.<br>strange holograms that show two people doing various things, though the degradation of this place has made them appear as merely shadows.<br>some of the runes even seem to be flying out at you, trying to provoke you.<br><br>do you touch them?",
     yesText: "the residue of this place is too much for you to handle.<br>you burn from the inside out and die.",
     noText: "you reject them and keep moving forward towards the center.",
     nextYes: null,    // YES -> step 2
@@ -139,7 +139,7 @@ const STEPS = [
 
   // step index 2
   {
-    prompt: "as you walk slowly, you notice murals on the pillars.<br>they seem to grow in quantity and quality as you get closer to the center, it seems that there is still some arcane essence left that is preserving them.<br>one of the murals depicts a male playing some sort of instrument to a female, presumably for some special occasion.<br>another depicts that female giving a book to the male, full of pictures and sentences you can't understand.<br><br>as you make your way deeper inside, you see the radiant glow of a bright white orb, brighter than all of the runes you've seen.<br><br>will you turn back in its authority, or try to step forth?",
+    prompt: "as you walk slowly, you notice murals on the pillars.<br>they seem to grow in quantity and quality as you get closer to the center, it seems that there is still some arcane essence left that is preserving them.<br>one of the murals depicts a male playing some sort of instrument to a female, presumably for some special occasion.<br>another depicts that female giving a book to the male, full of pictures and sentences you can't understand.<br>presumably, these are the identities of the shadows you saw earlier.<br><br>as you make your way deeper inside, you see the radiant glow of a bright white orb, brighter than all of the runes you've seen.<br><br>will you turn back in its authority, or try to step forth?",
     yesText: "you turn back, scared that it might be your end.<br>your adventure can continue some other time.",
     noText: "you continue.<br>the orb pulses erratically, maybe it's sentient?",
     nextYes: null,    // YES -> step 3
@@ -148,7 +148,7 @@ const STEPS = [
 
   // step index 3
   {
-    prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br><br>do you state your purpose?",
+    prompt: "the orb senses you.<br>it floats down and morphs into the shape of your kind.<br>it speaks your language, perhaps in an attempt to come off as friendly.<br><br>~what is it that you seek?~, it says.<br>~perhaps i can help you.~<br>it speaks quickly and decisively; it does not want to waste its nor your time.<br><br>do you state your purpose?",
     yesText: "you speak up.",
     noText: "you feel scared.<br>[i was just exploring this place, i'll be leaving now.]<br>~so soon? i was hoping your stay would be longer.~",
     nextYes: 4,    // YES -> step 4
@@ -158,7 +158,7 @@ const STEPS = [
   // step index 4 (passcode step)
 {
   type: "passcode",
-  prompt: "[i don't know where i came from, and i don't know where i am.], you speak up.<br>[i want to discover the truth.]<br><br>~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~regrettably, they have grown up and left me.~<br>~by all means, though, good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
+  prompt: "[i don't know where i came from, and i don't know where i am.], you say.<br>[i want to discover the truth.]<br><br>~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~regrettably, they have grown up and left me.~<br>~by all means, though, good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
   correctCode: "swordfish",   // 🔑 change this
   successText: "the spirit is satisfied.",  // <--- put your secret here
   failureText: "the spirit is dissatisfied with that information.",
@@ -300,6 +300,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
