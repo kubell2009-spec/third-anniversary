@@ -150,7 +150,7 @@ const STEPS = [
   // step index 3
   {
     prompt: "the ghost speaks to the others in a tongue you can't understand.<br>however, you can sense their approval from their expressions.<br>=they're letting you in.=<br><br>=oh, and don't bother with the little side towers.=<br>=they were made for us.=<br>=each would have their own little tower to call home, but the ones further away from the main tower have all decayed, as we have fully dedicated our strength to preserving the main tower, and collaterally the side towers near it.=<br>=now then, shall we?=<br><br>you walk up the winding spiral staircase inside, careful not to trip on missing steps.<br>the walls are decorated with special artefacts, inscriptions and more paintings.<br>you assume they hold some intangible meaning, like the bracelet with the name of a mythological creature on it.<br><br>eventually, you reach the top of the tower, where there is a room equipped with everything needed to sustain life.<br><br>there are lots of cabinets and drawers, do you check them?",
-    yesText: "you check the cabinets",
+    yesText: "you check the cabinets.",
     noText: "[this is a beautiful room.]<br>[i don't want to disturb it though, so i'll be heading out now.]",
     nextYes: 4,    // YES -> step 4
     nextNo: null   // NO -> ends
@@ -159,7 +159,7 @@ const STEPS = [
   // step index 4 (passcode step)
 {
   type: "passcode",
-  prompt: "you open each compartment, searching inside with your hands as it is too dark to see anything.<br>you pull out an assortment of items.<br>a diary, a stuffed monkey, notebooks for studying, books...<br>essentially, anything that could possibly belong in a bedroom is in the bedroom.<br><br>there's also a purple stuffed dinosaur with a green stomach which is constantly in an ear-to-ear grin.<br>it's disturbing.<br><br>you keep groping your way around.<br>more of those random items.<br>until only one cabinet is left before you, you open it and reach inside.<br>the backside of it is...<br><br>nonexistent?<br><br>you step inside and step towards the back.<br>you keep walking.<br>no wall to stop you.<br><br>you look back.<br>the doors are closed, no other way but forward.<br>in fact, there are strips of light trying to guide you forward.<br><br>as you walk, you hear a familiar voice.<br>your voice?<br>maybe you had some identical twin that you didn't know about.<br>or a doppelgänger.<br>in fact, there are multiple clones of that voice, saying different things.<br>they speak:<br><br>[[goodnight.]]<br>[[let's just break up, for real now.]]<br>[[my spark is gone.]]<br>[[me being your lover is troublesome and irritating.]]<br>[[who said we're talking tomorrow?]]<br><br>the statements are spoken again and again.<br>you become overwhelmed and try to cover your ears, but it does nothing.<br>the voices are coming from inside your head.<br>before you, words in starkly contrastive white materialize:<br><br>SEEK THE HATRED, FACE IT, AND DESTROY IT.<br>UTTER THE INCANTATION.",
+  prompt: "you open each compartment, searching inside with your hands as it is too dark to see anything.<br>you pull out an assortment of items.<br>a diary, a stuffed monkey, notebooks for studying, books...<br>essentially, anything that could possibly belong in a bedroom is in the bedroom.<br><br>there's also a purple stuffed dinosaur with a green stomach which is constantly in an ear-to-ear grin.<br>it's disturbing.<br><br>you keep groping your way around.<br>more of those random items.<br>until only one cabinet is left before you, you open it and reach inside.<br>the backside of it is...<br><br>nonexistent?<br><br>you step inside and step towards the back.<br>you keep walking.<br>no wall to stop you.<br><br>you look back.<br>the doors are closed, no other way but forward.<br>in fact, there are strips of light trying to guide you forward.<br><br>as you walk, you hear a familiar voice.<br>your voice?<br>maybe you had some identical twin that you didn't know about.<br>or a doppelgänger.<br>you keep making your way forward, and notice there are multiple clones of that voice, saying different things.<br>they speak:<br><br>[[goodnight.]]<br>[[let's just break up, for real now.]]<br>[[my spark is gone.]]<br>[[me being your lover is troublesome and irritating.]]<br>[[who said we're talking tomorrow?]]<br><br>the statements are spoken again and again.<br>you become overwhelmed and try to cover your ears, but it does nothing.<br>the voices are coming from inside your head.<br>before you, words in starkly contrastive white materialize:<br><br>SEEK THE HATRED, FACE IT, AND DESTROY IT.<br>UTTER THE INCANTATION.",
   correctCode: "swordfish",   // 🔑 change this
   successText: "the voices diminish.",  // <--- put your secret here
   failureText: "the voices grow louder.",
@@ -301,6 +301,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
