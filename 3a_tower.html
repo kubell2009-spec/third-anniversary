@@ -202,7 +202,7 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        questionText.innerHTML = "the voices shriek all at once, and dissipate.<br>the letters before you morph and jumble around, forming new sentences.<br>it's quite satisfying seeing them dance, leaving luminous trails in their wake.<br>they read:<br>THIS TOWER, IT TOOK YEARS TO BUILD.<br>ITS MAKERS PATIENTLY ADDED A FEW BRICKS EVERYDAY, UNTIL IT ROSE ABOVE THE HEAVENS.<br>AT FIRST WHEN THE BRICKS FELL OUT, THEY SCOLDED EACH OTHER FOR BEING NEGLIGENT.<br>THOSE DAYS, THEY WOULD NOT GET ANYTHING DONE.<br><br>EVENTUALLY, THEY LEARNT TO FORGIVE.<br>THEY LEARNT TO COMMUNICATE.<br>AND SO, IF THEY MADE MISTAKES AND THE BRICKS WERE LOOSE, THEY WOULD WORK TOGETHER TO FIX THEM.<br><br>YOU WILL REALIZE THAT THIS TOWER WAS NOT BUILT FROM CLAY, BUT FROM FIDELITY AND ACCEPTANCE.<br>ANY PHYSICAL BARRIERS ARE FUTILE IN THE FACE OF SPIRITUAL CONNECTION.<br>SUCH IS WHY THE PHANTOMS PRESERVE THIS STRUCTURE PURELY FOR THE SAKE OF THEIR MASTERS.<br>SUCH IS WHY YOU CAME BACK HERE, TO REDISCOVER YOURSELF.<br><br>beneath your feet, characters begin to shine in a ring around you.<br>they read:<br><br>";
+        questionText.innerHTML = "the voices shriek all at once, and dissipate.<br>the letters before you morph and jumble around, forming new sentences.<br>it's quite satisfying seeing them dance, leaving luminous trails in their wake.<br>they read:<br><br>THIS TOWER, IT TOOK YEARS TO BUILD.<br>ITS MAKERS PATIENTLY ADDED A FEW BRICKS EVERYDAY, UNTIL IT ROSE ABOVE THE HEAVENS.<br>AT FIRST WHEN THE BRICKS FELL OUT, THEY SCOLDED EACH OTHER FOR BEING NEGLIGENT.<br>THOSE DAYS, THEY WOULD NOT GET ANYTHING DONE.<br><br>EVENTUALLY, THEY LEARNT TO FORGIVE.<br>THEY LEARNT TO COMMUNICATE.<br>AND SO, IF THEY MADE MISTAKES AND THE BRICKS WERE LOOSE, THEY WOULD WORK TOGETHER TO FIX THEM.<br><br>YOU WILL REALIZE THAT THIS TOWER WAS NOT BUILT FROM CLAY, BUT FROM FIDELITY AND ACCEPTANCE.<br>ANY PHYSICAL BARRIERS ARE FUTILE IN THE FACE OF SPIRITUAL CONNECTION.<br>SUCH IS WHY THE PHANTOMS PRESERVE THIS STRUCTURE PURELY FOR THE SAKE OF THEIR MASTERS.<br>SUCH IS WHY YOU CAME BACK HERE, TO REDISCOVER YOURSELF.<br><br>beneath your feet, characters begin to shine in a ring around you.<br>they read:<br><br>";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
@@ -301,6 +301,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
