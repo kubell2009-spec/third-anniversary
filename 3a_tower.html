@@ -122,7 +122,7 @@
 const STEPS = [
   // step index 0
   {
-    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies a tall tower, with two smaller ones beside it.<br>around you is an empty field, there isn't really anywhere else to go.<br><br>you see ghosts flying in and out of the windows of the towers.<br>that's a surefire sign that this thing is haunted.<br><br>do you go in, or stay out here?",
+    prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>before you lies a tall tower, with two smaller ones beside it.<br>all of them have moss and fungi growing on the sides.<br>around you is a dark empty field, there isn't really anywhere else to go.<br>you see ghosts flying in and out of the windows of the towers, muttering something to themselves.<br><br>there is a peculiar detail, in that there seems to be rubble stretching for kilometers on end away from the tower.<br>there must have been one big structure, or a lot of small structures around it.<br>how did the tower stay intact?<br><br>either way, the tower must hold something of note.<br>do you go in, or stay out here and observe?",
     yesText: "as you inch close, one of the ghosts possesses you.<br>it makes you smash your head into a wall, which kills you.",
     noText: "you observe.",
     nextYes: null,   // go to step 1 on YES
@@ -131,7 +131,7 @@ const STEPS = [
 
   // step index 1
   {
-    prompt: "the ghosts seem to be wrapped up in their own things.<br>you try to think of a way to present yourself so that they would not become angered.<br>as you look around, you notice a few key things.<br><br>there are some trees around you, with fallen branches under them.<br>stones litter the ground.<br>besides that, though, nothing significant.<br><br>you turn your attention to the towers.<br>they're surely old, a lot of the bricks have fallen out already.<br>near the ground, there is a relatively large gap of missing material that you can see through.<br><br>you can see a painting on the inside.<br>a male and a female, disheartened because of the distance between them.<br><br>one of the branches is large enough for you to draw on the ground with.<br>do you replicate the painting, or do you draw the opposite?",
+    prompt: "the ghosts seem to be wrapped up in their own things.<br>you try to think of a way to present yourself so that they would not become angered.<br>as you look around, you notice a few key things.<br><br>there are some trees around you, with fallen branches under them.<br>stones litter the ground.<br>besides that, though, nothing significant.<br><br>you turn your attention to the towers.<br>they're surely old, a lot of the bricks have fallen out already.<br>near the ground, there is a relatively large gap of missing material that you can see through.<br><br>you can see a painting on the inside.<br>a male and a female, disheartened, with a dark forest between them that cannot be traversed.<br><br>one of the branches is large enough for you to draw on the ground with.<br>do you replicate the painting, or do you draw the opposite?",
     yesText: "the phantoms see your drawing and realizes what it is.",
     noText: "the phantoms see your drawing.<br>they become offended and kill you.",
     nextYes: 2,    // YES -> step 2
@@ -150,8 +150,8 @@ const STEPS = [
   // step index 3
   {
     prompt: "the ghost speaks to the others in a tongue you can't understand.<br>however, you can sense their approval from their expressions.<br>=they're letting you in.=<br><br>=oh, and don't bother with the little side towers.=<br>=they were made for us.=<br>=each would have their own little tower to call home, but the ones further away from the main tower have all decayed, as we have fully dedicated our strength to preserving the main tower, and collaterally the side towers near it.=<br>=now then, shall we?=<br><br>you walk up the winding spiral staircase inside, careful not to trip on missing steps.<br>the walls are decorated with special artefacts, inscriptions and more paintings.<br>you assume they hold some intangible meaning, like the bracelet with the name of a mythological creature on it.<br><br>eventually, you reach the top of the tower, where there is a room equipped with everything needed to sustain life.<br><br>there are lots of cabinets and drawers, do you check them?",
-    yesText: "",
-    noText: "",
+    yesText: "you check the cabinets",
+    noText: "[this is a beautiful room.]<br>[i don't want to disturb it though, so i'll be heading out now.]",
     nextYes: 4,    // YES -> step 4
     nextNo: null   // NO -> ends
   },
@@ -159,10 +159,10 @@ const STEPS = [
   // step index 4 (passcode step)
 {
   type: "passcode",
-  prompt: "~i see.~<br>~maybe i can try to access the records of this universe, but i'm not strong enough right now.~<br>~doing so will kill me, but, like you, i also yearn.~<br><br>~when i created this universe, i gave it life.~<br>~regrettably, they have grown up and left me.~<br>~good for them.~<br><br>~however, i can't help but still long for the beginning.~<br>~i don't really remember what happened, so if you can give me a reminder, that would be perfect.~",
+  prompt: "you open each compartment, searching inside with your hands as it is too dark to see anything.<br>you pull out an assortment of items.<br>a diary, a stuffed monkey, notebooks for studying, books...<br>essentially, anything that could possibly belong in a bedroom is in the bedroom.<br><br>there's also a purple stuffed dinosaur with a green stomach which is constantly in an ear-to-ear grin.<br>it's disturbing.<br><br>you keep groping your way around.<br>more of those random items.<br>until only one cabinet is left before you, you open it and reach inside.<br>the backside of it is...<br><br>nonexistent?<br><br>you step inside and step towards the back.<br>you keep walking.<br>no wall to stop you.<br><br>you look back.<br>the doors are closed, no other way but forward.<br>in fact, there are strips of light trying to guide you forward.<br><br>as you walk, you hear a familiar voice.<br>your voice?<br>maybe you had some identical twin that you didn't know about.<br>or a doppelgänger.<br>in fact, there are multiple clones of that voice, saying different things.<br>they speak:<br><br>[[goodnight.]]<br>[[let's just break up, for real now.]]<br>[[my spark is gone.]]<br>[[me being your lover is troublesome and irritating.]]<br>[[who said we're talking tomorrow?]]<br><br>the statements are spoken again and again.<br>you become overwhelmed and try to cover your ears, but it does nothing.<br>the voices are coming from inside your head.<br>before you, words in starkly contrastive white materialize:<br><br>SEEK THE HATRED, FACE IT, AND DESTROY IT.<br>UTTER THE INCANTATION.",
   correctCode: "swordfish",   // 🔑 change this
-  successText: "the spirit is satisfied.",  // <--- put your secret here
-  failureText: "the spirit is dissatisfied with that information.",
+  successText: "the voices diminish.",  // <--- put your secret here
+  failureText: "the voices grow louder.",
 }
 
 ];
@@ -202,7 +202,7 @@ function renderPrompt() {
     submit.textContent = 'Submit';
     submit.addEventListener('click', () => {
       if (input.value === step.correctCode) {
-        questionText.innerHTML = "~ah.~<br>~i assume you've found out by now that i only created this universe for two people.~<br>~look at them, so innocent, just having fun.~<br>~in any case...~<br><br>~you somehow managed to find this little piece of information.~<br>~then if i'm right...~<br><br>~welcome home, drana.~<br><br>the spirit begins to disintegrate in front of your eyes.<br>images moving and still pass by in an instant, an archive for millions of moments.<br>the spirit winces as it searches through the maelstrom.<br><br>in its final moments, you see it smile, and finally fade away.<br>where it hovered, a note made of hovering inscriptions:<br><br>https://";
+        questionText.innerHTML = "the voices shriek all at once, and dissipate.<br>the letters before you morph and jumble around, forming new sentences.<br>it's quite satisfying seeing them dance, leaving luminous trails in their wake.<br>they read:<br>THIS TOWER, IT TOOK YEARS TO BUILD.<br>ITS MAKERS PATIENTLY ADDED A FEW BRICKS EVERYDAY, UNTIL IT ROSE ABOVE THE HEAVENS.<br>AT FIRST WHEN THE BRICKS FELL OUT, THEY SCOLDED EACH OTHER FOR BEING NEGLIGENT.<br>THOSE DAYS, THEY WOULD NOT GET ANYTHING DONE.<br><br>EVENTUALLY, THEY LEARNT TO FORGIVE.<br>THEY LEARNT TO COMMUNICATE.<br>AND SO, IF THEY MADE MISTAKES AND THE BRICKS WERE LOOSE, THEY WOULD WORK TOGETHER TO FIX THEM.<br><br>YOU WILL REALIZE THAT THIS TOWER WAS NOT BUILT FROM CLAY, BUT FROM FIDELITY AND ACCEPTANCE.<br>ANY PHYSICAL BARRIERS ARE FUTILE IN THE FACE OF SPIRITUAL CONNECTION.<br>SUCH IS WHY THE PHANTOMS PRESERVE THIS STRUCTURE PURELY FOR THE SAKE OF THEIR MASTERS.<br>SUCH IS WHY YOU CAME BACK HERE, TO REDISCOVER YOURSELF.<br><br>beneath your feet, characters begin to shine in a ring around you.<br>they read:<br><br>";
         appendParagraph(step.successText || "Correct!");
 
         // ✅ Instead of restart, show Return button
@@ -301,6 +301,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
