@@ -125,7 +125,7 @@ const STEPS = [
   // step index 0
   {
     prompt: "you became dizzy as you enter the portal, you couldn't remember what happened.<br><br>the sky is pitch black, you can't really see anything.<br>you hear the sound of grass or fallen leaves beneath your feet.<br>some occasional flapping, presumably of some birds here.<br>slight wind blows on your skin.<br>it's cool, not too cold so as to feel like winter; but relaxing enough to fall asleep to.<br><br>you bump into a tree trunk.<br>you run your hand over it, it's rough and tough as though it had taken root here for a long time.<br>you walk around with your arm in front.<br>you feel several more old trees, so you conclude that this must be some kind of forest.<br><br>suddenly, all around you, you hear crackling.<br>it's not loud by any means, but the radio silence of the forest has amplified it.<br>the sounds come closer.<br>then, whispering.<br><br>{what is this creature?}<br>{it looks familiar.}<br><br>{{you idiot!}}<br>{{it's her.}}<br><br>{is it really her?}<br>{i don't know yet, we don't have a sure sign that it's her.}<br><br>are they talking about you?<br>you don't know what these things are, let alone work with them.<br>though, the second voice seems so sure.<br>maybe they do have something to do with you, and you just forgot.<br><br>either way, you're supposed to give them a sign.<br>or not.<br>do you speak up, or ignore them and keep on exploring?",
-    yesText: "you open your mouth, and the voices were startled by the familiar voice.",
+    yesText: "you open your mouth, and the voices were startled by something familiar.",
     noText: "you keep moving.<br>they eventually leave, and you become lost in the expanse.",
     nextYes: 1,   // go to step 1 on YES
     nextNo: null
@@ -133,9 +133,9 @@ const STEPS = [
 
   // step index 1
   {
-    prompt: "you speak up.<br>[hello?]<br>[who is the woman that you are looking for?]<br><br>hovering balls of blue flame burst out in the night around you, lighting up the area.<br>{greetings!}<br>{yes, it's you that we're looking for.}<br>{sorry for not recognizing you at first, but i know that voice.}<br><br>the wisp speaking floats closer to you.<br>{we're so glad to see you back here.}<br>{what happened?}<br>{we would love to hear all about it.}<br><br>[unfortunately, i don't remember anything.]<br>[i don't even remember who all of you are.]<br>[i'm on my journey trying to recall.]<br><br>{oh man, whatever happened must have been rough.}<br>{don't worry, we'll help you!}<br>{let's go to wyste, maybe she knows what to do.}",
-    yesText: "the residue of this place is too much for you to handle.<br>you burn from the inside out and die.",
-    noText: "you reject them and keep moving forward towards the center.",
+    prompt: "you speak up.<br>[hello?]<br>[who is the woman that you are looking for?]<br><br>hovering balls of blue flame burst out in the night around you, lighting up the area.<br>{greetings!}<br>{yes, it's you that we're looking for.}<br>{sorry for not recognizing you at first, but i know that voice.}<br><br>the wisp speaking floats closer to you.<br>{we're so glad to see you back here.}<br>{what happened?}<br>{we would love to hear all about it.}<br><br>[unfortunately, i don't remember anything.]<br>[i don't even remember who all of you are.]<br>[i'm on my journey trying to recall.]<br><br>{oh man, whatever happened must have been rough.}<br>{don't worry, we'll help you!}<br>{let's go to wyste, maybe she knows what to do.}<br><br>the wisps string together to light up a path for you to walk.<br>it's not much light, but it's something.<br>you remain cautious of any stones or branches that you might trip on.<br><br>all of you walk for thousands of thousands of miles, but you don't feel hungry or thirsty or tired.<br>and the sky is still dark.<br>it's as if time is frozen here.<br><br>you pick flowers, pet animals, cross rivers, climb mountains, descend caves; witness rainy days, snowy days, windy days; until finally, you reach a gargantuan tree.<br>it seems to be peacefully dormant, though.<br><br>do you wake it up?",
+    yesText: "you try to wake up the tree.",
+    noText: "[i don't want to wake up this tree.]<br>[it's sleeping too peacefully.]<br>[maybe we can look elsewhere?]",
     nextYes: null,    // YES -> step 2
     nextNo: 2      // NO -> jump to step 4 (branch continues instead of ending)
   },
@@ -303,6 +303,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
