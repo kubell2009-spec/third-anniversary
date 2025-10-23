@@ -136,8 +136,8 @@ const STEPS = [
     prompt: "you speak up.<br>[hello?]<br>[who is the woman that you are looking for?]<br><br>hovering balls of blue flame burst out in the night around you, lighting up the area.<br>{greetings!}<br>{yes, it's you that we're looking for.}<br>{sorry for not recognizing you at first, but i know that voice.}<br><br>the wisp speaking floats closer to you.<br>{we're so glad to see you back here.}<br>{what happened?}<br>{we would love to hear all about it.}<br><br>[unfortunately, i don't remember anything.]<br>[i don't even remember who all of you are.]<br>[i'm on my journey trying to recall.]<br><br>{oh man, whatever happened must have been rough.}<br>{don't worry, we'll help you!}<br>{let's go to wyste, maybe she knows what to do.}<br><br>the wisps string together to light up a path for you to walk.<br>it's not much light, but it's something.<br>you remain cautious of any stones or branches that you might trip on.<br><br>all of you walk for thousands of thousands of miles, but you don't feel hungry or thirsty or tired.<br>and the sky is still dark.<br>it's as if time is frozen here.<br><br>you pick flowers, pet animals, cross rivers, climb mountains, descend caves; witness rainy days, snowy days, windy days; until finally, you reach a gargantuan tree.<br>it seems to be peacefully dormant, though.<br><br>do you wake it up?",
     yesText: "you try to wake up the tree.",
     noText: "[i don't want to wake up this tree.]<br>[it's sleeping too peacefully.]<br>[maybe we can look elsewhere?]",
-    nextYes: null,    // YES -> step 2
-    nextNo: 2      // NO -> jump to step 4 (branch continues instead of ending)
+    nextYes: 2,    // YES -> step 2
+    nextNo: null      // NO -> jump to step 4 (branch continues instead of ending)
   },
 
   // step index 2
@@ -303,6 +303,7 @@ function restartAdventure() {
 
 </body>
 </html>
+
 
 
 
